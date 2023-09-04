@@ -1,4 +1,8 @@
-alert('Hello world');
+//array containing a list of Pokemon
+let pokemonList = [
+  { name: "Bulbasaur", weight: 6.9, type: ["grass", "poison"] },
+  { name: "Ivysaur", weight: 13, type: ["grass", "poison"] },
+  { name: "Venasaur", weight: 100, type: ["grass", "poison"] },
+];
 
-let favoriteFood = "Burrito"
-document.write(favoriteFood)
+console.log(pokemonList)
