@@ -1,0 +1,32 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    width: 500px;
+    border: 1px black solid;
+}
+
+#pokelist {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+}
+
+#pokelist li {
+    margin: 10px 20px;
+}
+
+#pokelist button {
+    display: block;
+    width: 100%;
+    border: none;
+    background-color: #cdcdcd;
+    padding: 14px 28px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+}

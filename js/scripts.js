@@ -70,12 +70,27 @@ let pokemonRepository = (function () {
   //function to add each pokemon as a list item to the pokemon list
   function displayPokemon(poke) {
     let pokeItem = document.createElement("li");
-    let text = document.createTextNode(`${poke.name} (weight: ${poke.weight})`);
+    let button = document.createElement("button")
+    button.innerText = poke.name
+    button.classList.add('poke-button')
+    buttonListener(button, poke)
+    pokeItem.appendChild(button)
 
     //appending the pokemon to the list
     pokeItem.setAttribute("id", poke.name);
-    pokeItem.appendChild(text);
     pokeList.appendChild(pokeItem);
+  }
+
+  //function to feed into button event listener. logs selected pokemon into the console
+  function showDetails(poke) {
+    console.log(poke.name)
+  }
+
+  //function to add event listener to button
+  function buttonListener(button, poke) {
+    button.addEventListener('click', function() {
+      showDetails(poke)
+    })
   }
 
   return {
