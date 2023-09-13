@@ -27,14 +27,8 @@ let pokemonRepository = (function () {
     let pokeKeys = { name: "", weight: "", type: "" };
     //variable that has a function that checks whether two objects have the same keys
     const haveSameKeys = function (obj1, obj2) {
-      const obj1Length = Object.keys(obj1).length;
-      const obj2Length = Object.keys(obj2).length;
-
-      if (obj1Length === obj2Length) {
         return Object.keys(obj1).every((key) => obj2.hasOwnProperty(key));
       }
-      return false;
-    };
 
     //check whether new pokemon is an object and has the proper keys
     if (
@@ -52,7 +46,7 @@ let pokemonRepository = (function () {
   }
 
   function filterPokemon(filterPoke) {
-    if (pokemonList.some(poke => poke.name === filterPoke)) {
+    if (pokemonList.some((poke) => poke.name === filterPoke)) {
       let filteredPoke = pokemonList.filter((poke) => poke.name === filterPoke);
       displayPokemon(filteredPoke[0]);
     } else {
@@ -97,6 +91,7 @@ pokemonRepository.add({
   name: "Test",
   weight: 120,
   type: ["grass", "poison"],
+  test: ""
 });
 
 let pokemonList = pokemonRepository.getAll();
