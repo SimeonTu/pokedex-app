@@ -1,4 +1,4 @@
-.wrapper {
+#wrapper {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -29,4 +29,21 @@
     font-size: 16px;
     cursor: pointer;
     text-align: center;
+}
+
+.loading-wrapper {
+    display: none;
+}
+
+.loading-gif {
+    width: 100px;
+}
+
+.loading-text {
+    text-align: center;
+    margin: 10px 0;
+}
+
+.display {
+    display: block;
 }
