@@ -1,5 +1,6 @@
 let pokemonRepository = (function () {
   let pokeList = document.querySelector("#pokelist"); //saving the pokemon list HTML element in a variable
+  let modalContainer = document.querySelector("#modal-container"); //container for the modal shown when a pokemon is clicked
   let largestWeight = 0; //variable to track the largest weight of a pokemon
   let largestPokemon; //variable to track the largest pokemon
   let apiUrl = "https://pokeapi.co/api/v2/pokemon/?limit=150";
@@ -8,22 +9,24 @@ let pokemonRepository = (function () {
   let pokemonList = [];
 
   //defining "loading" elements
-  let heading = document.querySelector('h1')
-  let loadingWrapper = document.createElement('div');
-  let loadingGif = document.createElement('img')
-  let loadingText = document.createElement('p')
+  // let heading = document.querySelector('h1')
+  let loadingWrapper = document.createElement("div");
+  let loadingGif = document.createElement("img");
+  let loadingText = document.createElement("p");
 
-  loadingWrapper.classList.add('loading-wrapper')
-  loadingGif.classList.add('loading-gif')
-  loadingGif.src = './img/pikachu-running.gif'
-  loadingText.classList.add('loading-text')
-  loadingText.innerHTML = "Loading..."
+  loadingWrapper.classList.add("loading-wrapper");
+  loadingGif.classList.add("loading-gif");
+  loadingGif.src = "./img/pikachu-running.gif";
+  loadingText.classList.add("loading-text");
+  loadingText.innerHTML = "Loading data...";
 
-  loadingWrapper.appendChild(loadingGif)
-  loadingWrapper.appendChild(loadingText)
-  heading.parentNode.insertBefore(loadingWrapper, heading.nextSibling); //insert loading wrapper after "Pokemon" heading element
+  loadingWrapper.appendChild(loadingGif);
+  loadingWrapper.appendChild(loadingText);
+  //heading.parentNode.insertBefore(loadingWrapper, heading.nextSibling); insert loading wrapper after "Pokemon" heading element
 
-  const delay = ms => new Promise(res => setTimeout(res, ms)); //artificial delay function
+  const delay = (delayInms) => {
+    return new Promise((resolve) => setTimeout(resolve, delayInms));
+  };
 
   function add(newPokemon) {
     //base keys to compare
@@ -76,7 +79,9 @@ let pokemonRepository = (function () {
     let button = document.createElement("button");
     button.innerText = poke.name;
     button.classList.add("poke-button");
-    buttonListener(button, poke);
+    button.addEventListener("click", function () {
+      showModal(poke);
+    });
     pokeItem.appendChild(button);
 
     //appending the pokemon to the list
@@ -85,22 +90,18 @@ let pokemonRepository = (function () {
   }
 
   //function to feed into button event listener. logs selected pokemon into the console
-  function showDetails(poke) {
-    loadDetails(poke).then(function () {
-      console.log(poke);
-    });
-  }
+  // function showDetails(poke) {
+  //     showModal(poke);
+  // }
 
   //function to add event listener to button
-  function buttonListener(button, poke) {
-    button.addEventListener("click", function () {
-      showDetails(poke);
-    });
-  }
+  function buttonListener(button, poke) {}
 
   async function loadList() {
+    h1 = document.querySelector("h1")
+    h1.parentNode.insertBefore(loadingWrapper, h1.nextSibling); //insert loading wrapper below Pokemon heading
     showLoadingMessage();
-    await delay(1000)
+
     return fetch(apiUrl)
       .then(function (response) {
         return response.json();
@@ -120,9 +121,36 @@ let pokemonRepository = (function () {
       });
   }
 
+  function showLoadingMessage() {
+    loadingWrapper.classList.add("display");
+  }
+
+  function hideLoadingMessage() {
+    loadingWrapper.classList.remove("display");
+  }
+
   async function loadDetails(poke) {
+    // Clear all existing modal content
+    modalContainer.innerHTML = "";
+
+    let modal = document.createElement("div");
+    modal.classList.add("modal");
+
+    // Add the new modal content
+    let closeButtonElement = document.createElement("button");
+    closeButtonElement.classList.add("modal-close");
+    closeButtonElement.innerText = "Close";
+    closeButtonElement.addEventListener("click", hideModal);
+
+    modal.appendChild(closeButtonElement);
+    modalContainer.appendChild(modal);
+
+    modalContainer.classList.add("is-visible");
+
+    modal.appendChild(loadingWrapper)
     showLoadingMessage();
     await delay(1000)
+
     let url = poke.detailsUrl;
     return fetch(url)
       .then(function (response) {
@@ -140,13 +168,48 @@ let pokemonRepository = (function () {
       });
   }
 
-  function showLoadingMessage() {
-    loadingWrapper.classList.add('display')
+  async function showModal(poke) {
+    loadDetails(poke).then(function () {
+      console.log(poke);
+
+      let modal = document.querySelector(".modal");
+
+      let titleElement = document.createElement("h1");
+      titleElement.innerText = poke.name;
+
+      let pokeTypes = [];
+      poke.types.forEach((types) => pokeTypes.push(types.type.name));
+
+      console.log(pokeTypes);
+
+      let contentElement = document.createElement("p");
+      contentElement.innerText = `
+Height: ${poke.height}
+Types: ${pokeTypes}`;
+
+      modal.appendChild(titleElement);
+      modal.appendChild(contentElement);
+    });
   }
 
-  function hideLoadingMessage() {
-    loadingWrapper.classList.remove('display')
+  function hideModal() {
+    modalContainer.classList.remove("is-visible");
   }
+
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && modalContainer.classList.contains("is-visible")) {
+      hideModal();
+    }
+  });
+
+  modalContainer.addEventListener("click", (e) => {
+    // Since this is also triggered when clicking INSIDE the modal container,
+    // We only want to close if the user clicks directly on the overlay
+    let target = e.target;
+    if (target === modalContainer) {
+      hideModal();
+    }
+  });
 
   return {
     add: add,
