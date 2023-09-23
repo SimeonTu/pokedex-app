@@ -22,11 +22,11 @@ let pokemonRepository = (function () {
 
   loadingWrapper.appendChild(loadingGif);
   loadingWrapper.appendChild(loadingText);
-  //heading.parentNode.insertBefore(loadingWrapper, heading.nextSibling); insert loading wrapper after "Pokemon" heading element
 
-  const delay = (delayInms) => {
-    return new Promise((resolve) => setTimeout(resolve, delayInms));
-  };
+  // artificial delay function
+  // const delay = (delayInms) => {
+  //   return new Promise((resolve) => setTimeout(resolve, delayInms));
+  // };
 
   function add(newPokemon) {
     //base keys to compare
@@ -98,7 +98,7 @@ let pokemonRepository = (function () {
   function buttonListener(button, poke) {}
 
   async function loadList() {
-    h1 = document.querySelector("h1")
+    h1 = document.querySelector("h1");
     h1.parentNode.insertBefore(loadingWrapper, h1.nextSibling); //insert loading wrapper below Pokemon heading
     showLoadingMessage();
 
@@ -107,13 +107,21 @@ let pokemonRepository = (function () {
         return response.json();
       })
       .then(function (json) {
+
         hideLoadingMessage();
+
         json.results.forEach(function (item) {
           let pokemon = {
             name: item.name,
             detailsUrl: item.url,
           };
+
+          //capitalize first letter of each pokemon
+          pokemon.name = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
+
+          //add pokemon to list
           add(pokemon);
+
         });
       })
       .catch(function (e) {
@@ -147,9 +155,9 @@ let pokemonRepository = (function () {
 
     modalContainer.classList.add("is-visible");
 
-    modal.appendChild(loadingWrapper)
+    modal.appendChild(loadingWrapper);
     showLoadingMessage();
-    await delay(1000)
+    // await delay(1000);
 
     let url = poke.detailsUrl;
     return fetch(url)
@@ -159,13 +167,33 @@ let pokemonRepository = (function () {
       .then(function (details) {
         hideLoadingMessage();
         // Now we add the details to the item
-        poke.imageUrl = details.sprites.front_default;
-        poke.height = details.height;
+        poke.id = details.id;
+        poke.imageUrl = details.sprites.other["official-artwork"].front_default;
+        poke.height = details.height / 10; //devided by 10 because data is stored in decimeters
+        poke.weight = details.weight / 10;
         poke.types = details.types;
       })
       .catch(function (e) {
         console.error(e);
       });
+  }
+
+  function gridItem(poke, property, description) {
+    let item = document.createElement("div");
+    item.classList.add("grid-item");
+
+    let itemTitle = document.createElement("p");
+    itemTitle.classList.add("grid-title");
+    itemTitle.innerText = property;
+
+    let itemDescription = document.createElement("p");
+    itemDescription.classList.add("grid-description");
+    itemDescription.innerText = description;
+
+    item.appendChild(itemTitle);
+    item.appendChild(itemDescription);
+
+    return item;
   }
 
   async function showModal(poke) {
@@ -174,21 +202,40 @@ let pokemonRepository = (function () {
 
       let modal = document.querySelector(".modal");
 
-      let titleElement = document.createElement("h1");
-      titleElement.innerText = poke.name;
+      let title = document.createElement("p");
+      let titleSpan = document.createElement("span");
+      title.classList.add("modal-poke-title");
+      title.innerText = poke.name;
+      titleSpan.innerText = `#${poke.id}`;
+      title.appendChild(titleSpan);
+
+      let infoWrapper = document.createElement("div");
+      infoWrapper.classList.add("modal-info-wrapper");
+
+      let imageWrapper = document.createElement("div");
+      let image = document.createElement("img");
+      imageWrapper.classList.add("modal-info-image-wrapper");
+      imageWrapper.appendChild(image);
+      image.src = poke.imageUrl;
+      infoWrapper.appendChild(imageWrapper);
+
+      let statsWrapper = document.createElement("div");
+      statsWrapper.classList.add("modal-info-stats-grid");
+      statsWrapper.appendChild(gridItem(poke, "Height", `${poke.height} m`));
+      statsWrapper.appendChild(gridItem(poke, "Weight", `${poke.weight} kg`));
+      infoWrapper.appendChild(statsWrapper);
+
+      //       info.innerText = `
+      // Height: ${poke.height} m
+      // Weight: ${poke.weight} kg
+      // Types: ${pokeTypes}`;
 
       let pokeTypes = [];
       poke.types.forEach((types) => pokeTypes.push(types.type.name));
-
       console.log(pokeTypes);
 
-      let contentElement = document.createElement("p");
-      contentElement.innerText = `
-Height: ${poke.height}
-Types: ${pokeTypes}`;
-
-      modal.appendChild(titleElement);
-      modal.appendChild(contentElement);
+      modal.appendChild(title);
+      modal.appendChild(infoWrapper);
     });
   }
 
