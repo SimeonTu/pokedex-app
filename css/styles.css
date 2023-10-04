@@ -1,6 +1,28 @@
+
+:root {
+    --normal: #A8A77A;
+    --fire: #EE8130;
+    --water: #6390F0;
+    --electric: #F7D02C;
+    --grass: #7AC74C;
+    --ice: #96D9D6;
+    --fighting: #C22E28;
+    --poison: #A33EA1;
+    --ground: #E2BF65;
+    --flying: #A98FF3;
+    --psychic: #F95587;
+    --bug: #A6B91A;
+    --rock: #B6A136;
+    --ghost: #735797;
+    --dragon: #6F35FC;
+    --dark: #705746;
+    --steel: #B7B7CE;
+    --fairy: #D685AD;
+}
+
 body {
     font-family: "Flexo-Medium", Arial, Helvetica, sans-serif;
-    background-image: url("https://thumbs.dreamstime.com/b/pokemon-silhouette-background-vector-cartoon-symbol-art-icon-play-go-sign-concept-ball-pokeball-shape-pokemon-silhouette-142907703.jpg");
+    background-color: rgb(255, 245, 245);
 }
 
 #main-heading {
@@ -8,37 +30,12 @@ body {
     text-align: center;
 }
 
-#wrapper {
-    /* display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center; */
-    /* position: absolute; */
-    /* left: 50%;
-    transform: translate(-50%); */
-    /* width: 500px; */
-    border: 1px black solid;
-}
-
-/* #pokelist {
-    list-style: none;
-    padding: 0;
-    width: 100%;
-} */
-
 #pokelist li {
     margin: 10px 20px;
 }
 
 #pokelist button {
-    /* display: block; */
     width: 100%;
-    /* border: none; */
-    /* background-color: #cdcdcd; */
-    /* padding: 14px 28px; */
-    /* font-size: 16px; */
-    /* cursor: pointer; */
-    /* text-align: center; */
 }
 
 .loading-wrapper {
@@ -59,38 +56,8 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding: 20px 0;
 }
-
-  
-#modal-container.is-visible {
-    position: fixed;
-    padding: 20px;
-    box-sizing: border-box;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    
-    z-index: 999; 
-    
-    overflow: auto; 
-    
-    display: grid;
-    text-align: center;
-}
-  
-/* .modal {
-    margin: auto;
-    display: inline-block;
-    position: relative;
-    box-sizing: border-box;
-    background: #fff;
-    border-radius: 2.5%;
-    padding: 15px;
-    width: 100%;
-    max-width: 700px;
-} */
   
 .modal-header .btn-close {
     position: absolute;
@@ -168,7 +135,7 @@ body {
 }
 
 .poke-types {
-    margin: 10px;
+    /* margin: 10px; */
 }
 
 .poke-types span {
@@ -209,34 +176,44 @@ body {
 
 }
 
-.bg-color-grass {
-    background-color: green;
+#wrapper {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(205, 205, 205);
+    /* padding: 0 100px; */
+    margin: 0 auto;
+    border: 4px solid rgba(0,0,0,0.25); 
 }
-
-.bg-color-poison {
-    background-color: purple;
-}
-
-.bg-color-fire {
-    background-color: orange;
-}
-
 
 .container-md {
-    border: 2px blue solid;
+    /* border: 2px blue solid; */
+    background-color: inherit;
     /* width: 920px; */
 }
 
 @media only screen and (width >= 992px) {
     .container-md {
-        max-width: 990px;
+        max-width: 940px;
+    }
+
+    #wrapper {
+        width: 990px;
+        /* padding: 0 50px; */
     }
   }
 
 @media only screen and (width >= 1400px) {
     .container-md {
-        max-width: 1280px;
+        max-width: 1320px;
     }
+
+    #wrapper {
+        width: 1380px;
+    }
+}
+
+.poke-row {
+    background-color: inherit;
 }
 
 .poke-item-col {
@@ -247,12 +224,31 @@ body {
     /* width: 230px; */
     /* min-width: 230px; */
     /* max-width: 230px; */
-    border: 1px solid red;
+    padding: 0;
+    /* margin: 0 5px 10px; */
+    /* border: 1px solid red; */
+    background-color: inherit;
+}
+
+.poke-item {
+    margin: 0 5px 10px;
+    border: 2px solid black;
+    border-radius: 5px;
+    box-shadow: 0px 2px 5px 0px black;
+    cursor: pointer;
+    transition: 0.5s;
     background-color: white;
 }
 
+/* .poke-item:hover {
+    transform: scale(1.1);
+    z-index: 9999;
+} */
+
 .poke-info {
-    /* text-align: center; */
+    padding: 10px;
+    background-color: rgb(220, 220, 220);
+    border-radius: 5px;
 }
 
 .poke-info .poke-id {
@@ -270,13 +266,123 @@ body {
 
 .poke-thumbnail {
     margin: 0 auto;
-    height: auto;
-    width: 200px;
-    background-color: rgb(231, 231, 231);
+    height: 250px;
+    width: 250px;
+    background-image: url("../img/pokeball.svg");
+    background-repeat: no-repeat;
 }
 
 .poke-thumbnail img {
     object-fit: contain;
     height: 100%;
     width: 100%;
+}
+
+.btn {
+    height: 50px;
+    width: 200px;
+    margin: 25px auto 0;
+}
+
+/* observer {
+    display: inline-block;
+    width: 100%;
+    height: 75px;
+    background-color: yellow;
+} */
+
+footer {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    border-top: 1px solid rgba(0,0,0,0.25);
+    width: 80%;
+    margin: 30px auto 20px;
+    padding: 30px 0 0;
+    font-size: 1.25rem;
+    text-align: center;
+}
+
+footer p {
+    margin: 0;
+}
+
+footer a {
+    margin: 0 auto;
+    padding-left: 0.25rem;
+    color: black;
+    font-weight: bold;
+    cursor: pointer !important;
+}
+
+.bg-color-normal {
+    background-color: var(--normal);
+}
+
+.bg-color-fire {
+    background-color: var(--fire);
+}
+
+.bg-color-water {
+    background-color: var(--water);
+}
+
+.bg-color-electric {
+    background-color: var(--electric);
+}
+
+.bg-color-grass {
+    background-color: var(--grass);
+}
+
+.bg-color-ice {
+    background-color: var(--ice);
+}
+
+.bg-color-fighting {
+    background-color: var(--fighting);
+}
+
+.bg-color-poison {
+    background-color: var(--poison);
+}
+
+.bg-color-ground {
+    background-color: var(--ground);
+}
+
+.bg-color-flying {
+    background-color: var(--flying);
+}
+
+.bg-color-psychic {
+    background-color: var(--psychic);
+}
+
+.bg-color-bug {
+    background-color: var(--bug);
+}
+
+.bg-color-rock {
+    background-color: var(--rock);
+}
+
+.bg-color-ghost {
+    background-color: var(--ghost);
+}
+
+.bg-color-dragon {
+    background-color: var(--dragon);
+}
+
+.bg-color-dark {
+    background-color: var(--dark);
+}
+
+.bg-color-steel {
+    background-color: var(--steel);
+}
+
+.bg-color-fairy {
+    background-color: var(--fairy);
 }
