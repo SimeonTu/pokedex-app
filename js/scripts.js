@@ -7,29 +7,21 @@ let pokemonRepository = (function () {
   //array containing a list of Pokemon
   let pokemonList = [];
 
+  //Value used to determine which Pokemon to load
   let offset;
 
   //defining "loading" elements
   // let heading = document.querySelector('h1')
-  let loadingWrapper = document.createElement("div");
-  let loadingGif = document.createElement("img");
-  let loadingText = document.createElement("p");
-
-  loadingWrapper.classList.add("loading-wrapper");
-  loadingGif.classList.add("loading-gif");
-  loadingGif.src = "./img/pikachu-running.gif";
-  loadingText.classList.add("loading-text");
-  loadingText.innerHTML = "Loading data...";
-
-  loadingWrapper.appendChild(loadingGif);
-  loadingWrapper.appendChild(loadingText);
+  let loadingWrapper = $(`<div class="loading-wrapper">
+                            <img class="loading-gif" src="./img/pikachu-running.gif">
+                          </div>`);
 
   pokeCursors();
 
   //// artificial delay function
-  // const delay = (delayInms) => {
-  //   return new Promise((resolve) => setTimeout(resolve, delayInms));
-  // };
+  const delay = (delayInms) => {
+    return new Promise((resolve) => setTimeout(resolve, delayInms));
+  };
 
   //// Might be useful later for a new feature ////
   // function filterPokemon(filterPoke) {
@@ -61,79 +53,106 @@ let pokemonRepository = (function () {
   //function to add each pokemon as a list item to the pokemon list
   function addListItem(poke) {
     let pokeItem =
-      $(`<div class="col col-sm-6 col-lg-4 col-xxl-3 poke-item-col">
+      $(`<div class="col col-sm-6 col-lg-4 col-xxl-3 poke-item-col" data-bs-toggle="modal" data-bs-target="#pokeModal">
+                      <div class="poke-item">
                         <div class="poke-thumbnail">
                           <img src="${poke.imageUrl}"/>
                         </div>
                         <div class="poke-info">
-                          <p class="poke-id">#${poke.id}</p>
+                          <p class="poke-id">#</p>
                           <p class="poke-name">${poke.name}</p>
                           <div class="poke-types">
                           </div>
                         </div>
-                      </div>`);
+                      </div>
+        </div>`);
 
-    console.log(poke.types);
+    //Hide item so that it can be shown with a fancy animation
+    pokeItem.hide();
 
+    //Set Pokemon ID to this format: "#0000"
+    let id =
+      poke.id < 10
+        ? `#000${poke.id}`
+        : poke.id >= 10 && poke.id < 100
+        ? `#00${poke.id}`
+        : poke.id >= 100 && poke.id < 1000
+        ? `#0${poke.id}`
+        : `#${poke.id}`;
+
+    pokeItem
+      .children(".poke-item")
+      .children(".poke-info")
+      .children(".poke-id")
+      .text(id);
+
+    //Append Pokemon types
     poke.types.forEach(function (type) {
       pokeItem
+        .children(".poke-item")
         .children(".poke-info")
         .children(".poke-types")
         .append($(`<span class="pill bg-color-${type}">${type}</span>`));
     });
 
-    //   let button =
-    //     $(`<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    //   ${poke.name}
-    // </button>`);
+    //Show modal when clicked
+    pokeItem.on("click", () => showModal(poke));
 
-    //   button.on("click", function () {
-    //     showModal(poke);
-    //   });
-    //   pokeItem.append(button);
-
-    //   //appending the pokemon to the list
-    //   pokeItem.attr("id", poke.name);
-
-    pokeItem.hide();
     $(".poke-row").append(pokeItem);
   }
 
-  function add(newPokemon) {
-    //base keys to compare
-    let pokeKeys = { name: "", detailsUrl: "" };
-    //variable that has a function that checks whether two objects have the same keys
-    const haveSameKeys = function (obj1, obj2) {
-      return Object.keys(obj1).every((key) => obj2.hasOwnProperty(key));
-    };
-
-    //check whether new pokemon is an object and has the proper keys
-    if (
-      typeof newPokemon === "object" &&
-      haveSameKeys(pokeKeys, newPokemon) === true
-    ) {
-      pokemonList.push(newPokemon);
-    } else {
-      console.log("New pokemon is not valid");
-    }
-  }
-
-  $("#test").on("click", function () {
+  function loadData(num, max) {
     pokemonList = [];
 
-    loadList(offset + 1, offset + 16).then(function () {
-      pokemonList.forEach(function (poke) {
-        // console.log(poke)
-        addListItem(poke);
-      });
-    }).then( () => showPokesAnim() )
+    loadList(num, max)
+      .then(function () {
+        pokemonList.forEach(function (poke) {
+          // console.log(poke)
+          addListItem(poke);
+        });
+      })
+      .then(() => loadPokesAnim());
+  }
 
+  $("#btn-load-pokemon").on("click", function () {
+    $("#btn-load-pokemon").remove();
+    loadData(offset + 1, offset + 16);
+    $("#pokelist").append($("<observer></obeserver>"));
+
+    setTimeout(async () => {
+      const intersectionObserver = new IntersectionObserver(async function (
+        entries
+      ) {
+        // If intersectionRatio is 0, the target is out of view
+        // and we do not need to do anything.
+        console.log(entries);
+        if (entries[0].isIntersecting) {
+          $("observer").remove();
+          console.log("SEEN!!");
+          $(".poke-row").append(loadingWrapper);
+          loadingWrapper.addClass("display");
+          await delay(1000);
+
+          // intersectionObserver.unobserve($("observer")[0]);
+          console.log("NOT OBSERVING");
+
+          loadData(offset + 1, offset + 16);
+
+          setTimeout(() => {
+            $("#pokelist").append($("<observer></obeserver>"));
+            intersectionObserver.observe($("observer")[0]);
+            console.log("OBSERVING");
+          }, 1800);
+        }
+      });
+      // start observing
+      intersectionObserver.observe($("observer")[0]);
+    }, 1800);
   });
 
   async function loadList(num, max) {
-    h1 = document.querySelector("#main-heading");
-    h1.parentNode.insertBefore(loadingWrapper, h1.nextSibling); //insert loading wrapper below Pokemon heading
-    showLoadingMessage();
+    loadingWrapper.addClass("display");
+    // await delay(1000)
 
     offset = max;
 
@@ -152,12 +171,8 @@ let pokemonRepository = (function () {
         types: item.types.map((types) => types.type.name),
       }));
 
-      hideLoadingMessage();
+      loadingWrapper.remove();
     });
-
-    //capitalize first letter of each pokemon
-    // pokemon.name =
-    //   pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
   }
 
   // loadList().then(
@@ -169,14 +184,8 @@ let pokemonRepository = (function () {
   //     }, 500)
   // );
 
-  loadList(1, 16).then(function () {
-    pokemonList.forEach(function (poke) {
-      // console.log(poke)
-      addListItem(poke);
-    })
-  }).then( () => showPokesAnim());;
+  loadData(1, 16);
 
-  
   //   // Now the data is loaded!
   //   // console.log(pokemonRepository.getAll()[0])
   //   pokemonRepository.getAll().forEach(function (pokemon) {
@@ -185,37 +194,36 @@ let pokemonRepository = (function () {
   //   });
   // });
 
-  function showPokesAnim() {
-      $(".poke-item-col").first().show(100, function showNext() {
-        $(this).next('div').show(100, showNext);
-      });
-  }
-
-  function showLoadingMessage() {
-    loadingWrapper.classList.add("display");
-  }
-
-  function hideLoadingMessage() {
-    loadingWrapper.classList.remove("display");
+  function loadPokesAnim() {
+    if (window.matchMedia("(max-width: 576px)").matches) {
+      $(".poke-item-col").show();
+    } else {
+      $(".poke-item-col")
+        .first()
+        .show(100, function showNext() {
+          $(this).next(".col").show(100, showNext);
+        });
+    }
   }
 
   async function loadDetails(poke) {
+    console.log(poke);
     let modalBody = $(".modal-body");
     let modalTitle = $(".modal-title");
 
     modalTitle.empty();
     modalBody.empty();
     modalBody.append(loadingWrapper);
-    showLoadingMessage();
+    loadingWrapper.addClass("display");
     // await delay(1000);
 
-    let url = poke.detailsUrl;
+    let url = `https://pokeapi.co/api/v2/pokemon/${poke.id}`;
     return fetch(url)
       .then(function (response) {
         return response.json();
       })
       .then(function (details) {
-        hideLoadingMessage();
+        loadingWrapper.removeClass("display");
         // Now we add the details to the item
         poke.id = details.id;
         poke.imageUrl = details.sprites.other["official-artwork"].front_default;
@@ -281,8 +289,7 @@ let pokemonRepository = (function () {
 
   async function showModal(poke) {
     loadDetails(poke).then(function () {
-      console.log(poke);
-
+      console.log("loaded details...");
       let modalBody = $(".modal-body");
       let modalTitle = $(".modal-title");
       let modalHeader = $(".modal-header");
@@ -312,11 +319,6 @@ let pokemonRepository = (function () {
       infoRow.append(statsItem(poke));
 
       modalInfo.append(infoWrapper);
-
-      //       info.innerText = `
-      // Height: ${poke.height} m
-      // Weight: ${poke.weight} kg
-      // Types: ${pokeTypes}`;
 
       modalTitle.text(title);
       modalTitle.append(titleSpan);
@@ -359,7 +361,6 @@ let pokemonRepository = (function () {
   // });
 
   return {
-    add: add,
     getAll: getAll,
     addListItem: addListItem,
     // largestPokeNote: largestPokeNote,
