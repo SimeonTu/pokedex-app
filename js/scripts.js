@@ -114,6 +114,54 @@ let pokemonRepository = (function () {
     $(".poke-row").append(pokeItem);
   }
 
+  function toggleButton() {
+    let dropdown = $(".gen-dropdown-menu");
+
+    if (dropdown.hasClass("toggle")) {
+      dropdown.slideDown();
+      dropdown.toggleClass("toggle");
+    } else {
+      dropdown.slideUp();
+      dropdown.toggleClass("toggle");
+    }
+  }
+
+  $("#gen-dropdown-btn").on("click", toggleButton);
+  $(window).on("click", (e) => {
+    if ($(".gen-dropdown-menu").css("display") == "block") {
+      if (!Array.from(e.target.classList).includes("dropdown-item") && e.target.id != "gen-dropdown-btn") {
+        toggleButton();
+      }
+    }
+  });
+
+  /*
+    console.log("test");
+  
+    let element = $(".gen-dropdown-menu");
+    if (element.hasClass("toggle")) {
+      console.log("yes")
+      // element.style.height =
+      //   Array.prototype.reduce.call(
+      //     element.childNodes,
+      //     function (p, c) {
+      //       return p + (c.offsetHeight || 0);
+      //     },
+      //     0
+      //   ) + "px";
+      //   $(".gen-dropdown-menu").css("border", "1px solid grey");
+      // $(".gen-dropdown-menu").hide()
+      $(".gen-dropdown-menu").slideDown("slow", "linear");
+      element.removeClass("toggle")
+    } else {
+      // element.style.height = "0px";
+      // setTimeout(() => $(".gen-dropdown-menu").css("border", "none"), 900);
+      $(".gen-dropdown-menu").slideUp();
+      element.addClass("toggle")
+    }
+  }
+  */
+
   function checkGen(gen, num, max) {
     offset = max;
 
@@ -199,6 +247,8 @@ let pokemonRepository = (function () {
         end = 0;
       }
 
+      toggleButton();
+
       gen = generation;
       flag = 3;
       $(".poke-row").empty();
@@ -242,13 +292,16 @@ let pokemonRepository = (function () {
     genButtons(i, num);
   }
 
-  $(".dropdown").on("show.bs.dropdown", (e) => {
-    $('.dropdown-menu').slideDown();
-  })
+  // $(".dropdown").on("show.bs.dropdown", (e) => {
+  //   $(".dropdown-menu").hide();
+  //   $(".dropdown-menu").slideDown();
+  // });
 
-  $(".dropdown").on("hide.bs.dropdown", (e) => {
-    $('.dropdown-menu').slideUp();
-  })
+  // $(".poke-dropdown").on("click", (e) => {
+  //   $(".dropdown-menu").css({"transform":"translate(-200px, 35px)"});
+  //   console.log($(".dropdown-menu").css("transform"))
+  //   $(".dropdown-menu").slideUp();
+  // });
 
   $("#btn-load-pokemon").on("click", async function () {
     $("#btn-load-pokemon").hide();
@@ -507,7 +560,7 @@ let pokemonRepository = (function () {
         .children("div")
         .children(".progress-bar")
         .animate(
-          {width: stat.value / 2.55 + "%"},
+          { width: stat.value / 2.55 + "%" },
           1750,
           "easeOutBounce" //Pokemon stats go from 0 to 255 so in order to get the % width value from 0% to 100% we divide by 2.55
         );
@@ -532,7 +585,7 @@ let pokemonRepository = (function () {
       modalInfo.addClass("modal-info-wrapper");
 
       let imageWrapper = $("<div></div>");
-      let image = $("<img />", {src: poke.imageUrl});
+      let image = $("<img />", { src: poke.imageUrl });
       imageWrapper.addClass("modal-info-image-wrapper");
       imageWrapper.append(image);
       modalInfo.append(imageWrapper);
