@@ -242,6 +242,14 @@ let pokemonRepository = (function () {
     genButtons(i, num);
   }
 
+  $(".dropdown").on("show.bs.dropdown", (e) => {
+    $('.dropdown-menu').slideDown();
+  })
+
+  $(".dropdown").on("hide.bs.dropdown", (e) => {
+    $('.dropdown-menu').slideUp();
+  })
+
   $("#btn-load-pokemon").on("click", async function () {
     $("#btn-load-pokemon").hide();
     flag = 0;

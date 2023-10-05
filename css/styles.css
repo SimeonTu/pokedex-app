@@ -62,6 +62,23 @@ body {
     align-items: center;
 }
 
+.dropdown-menu {
+
+
+
+    /* transition: all 0.5s;
+    overflow: hidden;
+    transform-origin: top center;
+    transform: scale(1,0);
+    display: block; */
+}
+
+.dropdown .dropdown-menu {
+
+    /* transform: scale(1); */
+   
+}
+
 #search-div {
     display: flex;
     align-items: center;
@@ -289,7 +306,7 @@ body {
 
 .poke-thumbnail {
     margin: 0 auto;
-    height: 100%;
+    min-height: auto;
     width: 80%;
     background-image: url("../img/pokeball.svg");
     background-repeat: no-repeat;
@@ -463,6 +480,10 @@ footer a span {
     #filter-div {
         justify-content: center;
         margin-bottom: 15px;
+    }
+
+    .poke-thumbnail {
+        min-height: 175px;
     }
 
     .container-md {
