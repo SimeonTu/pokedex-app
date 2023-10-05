@@ -28,17 +28,53 @@
         </div>
     </div>
 
-    <!-- <div id="modal-container"></div> -->
-
     <div id="wrapper">
         <h1 id="main-heading">Pokedex</h1>
-        
-        <div class="loading-wrapper">
-            <img class="loading-gif" src="./img/pikachu-running.gif">
-          </div>
 
         <div class="container-md" id="pokelist">
+
+            <div id="poke-menu">
+
+                <div id="filter-div">
+                    <span>Filter by:</span>
+                    
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Generation
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item gen-1" href="#">Generation I</a></li>
+                            <li><a class="dropdown-item gen-2" href="#">Generation II</a></li>
+                            <li><a class="dropdown-item gen-3" href="#">Generation III</a></li>
+                            <li><a class="dropdown-item gen-4" href="#">Generation IV</a></li>
+                            <li><a class="dropdown-item gen-5" href="#">Generation V</a></li>
+                            <li><a class="dropdown-item gen-6" href="#">Generation VI</a></li>
+                            <li><a class="dropdown-item gen-7" href="#">Generation VII</a></li>
+                            <li><a class="dropdown-item gen-8" href="#">Generation VIII</a></li>
+                            <li><a class="dropdown-item gen-9" href="#">Generation IX</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- <div id="search-div">
+                    <span>Search:</span>
+                    <input class="form-control" type="text" aria-label="default input example">
+                </div> -->
+
+                <form>
+                <div id="search-div" class="input-group">
+                    <!-- <span>Search:</span> -->
+                    <input type="text" class="form-control" aria-label="Pokemon search" aria-describedby="search-button">
+                    <button class="btn btn-outline-secondary" type="submit" id="search-button">Search</button>
+                  </div>
+
+                </form>
+
+            </div>
+
             <div class="row poke-row"></div>
+
         </div>
 
         <button type="button" class="btn btn-primary" id="btn-load-pokemon">Load more Pokémon</button>
@@ -49,7 +85,7 @@
             </p>
             <div>
                 <a href="https://github.com/SimeonTu" target="_blank">
-                    <img src="img/github.svg" alt="Github Link" />SimeonTu
+                    <img src="img/github.svg" alt="Github Link" /><span>SimeonTu</span>
                 </a>
             </div>
         </footer>

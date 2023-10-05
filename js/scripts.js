@@ -1,5 +1,4 @@
 let pokemonRepository = (function () {
-  let pokeList = $("#pokelist"); //saving the pokemon list HTML element in a variable
   let modalContainer = document.querySelector("#modal-container"); //container for the modal shown when a pokemon is clicked
   let largestWeight = 0; //variable to track the largest weight of a pokemon
   let largestPokemon; //variable to track the largest pokemon
@@ -9,29 +8,55 @@ let pokemonRepository = (function () {
 
   //Value used to determine which Pokemon to load
   let offset;
+  // Variable to track selected Pokemon generation
+  let gen;
+  // Variable to determine whether to load more Pokemon or not
+  let end;
+
+  let flag = 0;
 
   //defining "loading" elements
   // let heading = document.querySelector('h1')
   let loadingWrapper = $(`<div class="loading-wrapper">
                             <img class="loading-gif" src="./img/pikachu-running.gif">
                           </div>`);
+  // let loadingWrapperList = $(`<div class="loading-wrapper" id="loading-2">
+  //                           <img class="loading-gif" src="./img/pikachu-running.gif">
+  //                         </div>`);
 
   pokeCursors();
+
+  const intersectionObserver = new IntersectionObserver(async function (entries) {
+    // If intersectionRatio is 0, the target is out of view
+    // and we do not need to do anything.
+    console.log(entries);
+
+    if (entries[0].isIntersecting && flag == 1) {
+      loadData(offset + 1, offset + 16);
+    } else if (entries[0].isIntersecting && flag == 0) {
+      console.log("flag within observer: " + flag);
+      $("observer").remove();
+      console.log("SEEN!!");
+      // $(".poke-row").append(loadingWrapper);
+      // loadingWrapper.addClass("display");
+      // await delay(1800);
+
+      // intersectionObserver.unobserve($("observer")[0]);
+      console.log("NOT OBSERVING");
+
+      loadData(offset + 1, offset + 16);
+      setTimeout(() => {
+        $("#pokelist").append($("<observer></obeserver>"));
+        intersectionObserver.observe($("observer")[0]);
+        console.log("OBSERVING");
+      }, 2200);
+    }
+  });
 
   //// artificial delay function
   const delay = (delayInms) => {
     return new Promise((resolve) => setTimeout(resolve, delayInms));
   };
-
-  //// Might be useful later for a new feature ////
-  // function filterPokemon(filterPoke) {
-  //   if (pokemonList.some((poke) => poke.name === filterPoke)) {
-  //     let filteredPoke = pokemonList.filter((poke) => poke.name === filterPoke);
-  //     addListItem(filteredPoke[0]);
-  //   } else {
-  //     console.log("Invalid Pokemon");
-  //   }
-  // }
 
   // function largestPokeNote() {
   //   pokemonList.forEach(function (poke) {
@@ -52,8 +77,7 @@ let pokemonRepository = (function () {
 
   //function to add each pokemon as a list item to the pokemon list
   function addListItem(poke) {
-    let pokeItem =
-      $(`<div class="col col-sm-6 col-lg-4 col-xxl-3 poke-item-col" data-bs-toggle="modal" data-bs-target="#pokeModal">
+    let pokeItem = $(`<div class="col col-xs-12 col-sm-6 col-md-4 col-lg-3 poke-item-col" data-bs-toggle="modal" data-bs-target="#pokeModal">
                       <div class="poke-item">
                         <div class="poke-thumbnail">
                           <img src="${poke.imageUrl}"/>
@@ -71,20 +95,9 @@ let pokemonRepository = (function () {
     pokeItem.hide();
 
     //Set Pokemon ID to this format: "#0000"
-    let id =
-      poke.id < 10
-        ? `#000${poke.id}`
-        : poke.id >= 10 && poke.id < 100
-        ? `#00${poke.id}`
-        : poke.id >= 100 && poke.id < 1000
-        ? `#0${poke.id}`
-        : `#${poke.id}`;
+    let id = poke.id < 10 ? `#000${poke.id}` : poke.id >= 10 && poke.id < 100 ? `#00${poke.id}` : poke.id >= 100 && poke.id < 1000 ? `#0${poke.id}` : `#${poke.id}`;
 
-    pokeItem
-      .children(".poke-item")
-      .children(".poke-info")
-      .children(".poke-id")
-      .text(id);
+    pokeItem.children(".poke-item").children(".poke-info").children(".poke-id").text(id);
 
     //Append Pokemon types
     poke.types.forEach(function (type) {
@@ -101,6 +114,248 @@ let pokemonRepository = (function () {
     $(".poke-row").append(pokeItem);
   }
 
+  function checkGen(gen, num, max) {
+    offset = max;
+
+    if (gen == 1 && offset >= 151) {
+      if (num > 151) {
+        end = 1;
+        return;
+      }
+      flag = 1;
+      return 151;
+    } else if (gen == 2 && offset >= 251) {
+      if (num > 251) {
+        end = 1;
+        return;
+      }
+      flag = 1;
+      return 251;
+    } else if (gen == 3 && offset >= 386) {
+      if (num > 386) {
+        end = 1;
+        return;
+      }
+      flag = 1;
+      return 386;
+    } else if (gen == 4 && offset >= 493) {
+      if (num > 493) {
+        end = 1;
+        return;
+      }
+      flag = 1;
+      return 493;
+    } else if (gen == 5 && offset >= 649) {
+      if (num > 649) {
+        end = 1;
+        return;
+      }
+      flag = 1;
+      return 649;
+    } else if (gen == 6 && offset >= 721) {
+      if (num > 721) {
+        end = 1;
+        return;
+      }
+      flag = 1;
+      return 721;
+    } else if (gen == 7 && offset >= 809) {
+      if (num > 809) {
+        end = 1;
+        return;
+      }
+      flag = 1;
+      return 809;
+    } else if (gen == 8 && offset >= 905) {
+      if (num > 905) {
+        end = 1;
+        return;
+      }
+      flag = 1;
+      return 905;
+    } else if (gen == 9 && offset >= 1022) {
+      if (num > 1022) {
+        end = 1;
+        return;
+      }
+      flag = 1;
+      return 1022;
+    } else {
+      return max;
+    }
+  }
+
+  function genButtons(generation, num) {
+    $(`.gen-${generation}`).on("click", () => {
+      if ($("#btn-load-pokemon").css("display") == "none") {
+        $("#btn-load-pokemon").show();
+      }
+
+      if ($("observer").length) {
+        intersectionObserver.unobserve($("observer")[0]);
+      }
+
+      if (end == 1) {
+        end = 0;
+      }
+
+      gen = generation;
+      flag = 3;
+      $(".poke-row").empty();
+      loadData(num + 1, num + 16);
+      $(".dropdown-toggle").html($(`.gen-${generation}`).html());
+    });
+  }
+
+  //Assign action listeners to each button in the dropdown
+  for (let i = 1; i < 10; i++) {
+    let num;
+    switch (i) {
+      case 1:
+        num = 0;
+        break;
+      case 2:
+        num = 151;
+        break;
+      case 3:
+        num = 251;
+        break;
+      case 4:
+        num = 386;
+        break;
+      case 5:
+        num = 493;
+        break;
+      case 6:
+        num = 649;
+        break;
+      case 7:
+        num = 721;
+        break;
+      case 8:
+        num = 809;
+        break;
+      case 9:
+        num = 905;
+        break;
+    }
+    genButtons(i, num);
+  }
+
+  $(".dropdown").on("show.bs.dropdown", (e) => {
+    $('.dropdown-menu').slideDown();
+  })
+
+  $(".dropdown").on("hide.bs.dropdown", (e) => {
+    $('.dropdown-menu').slideUp();
+  })
+
+  $("#btn-load-pokemon").on("click", async function () {
+    $("#btn-load-pokemon").hide();
+    flag = 0;
+
+    loadData(offset + 1, offset + 16);
+    $("#pokelist").append($("<observer></obeserver>"));
+
+    setTimeout(() => {
+      // start observing
+      intersectionObserver.observe($("observer")[0]);
+    }, 1800);
+  });
+
+  $("form").on("submit", (e) => {
+    console.log("submit test");
+    filterPokemon(e);
+    e.preventDefault();
+  });
+
+  //If the browser window is extra small, submit button won't be visible and a placeholder will be shown instead
+  if ($(window).width() < 576) {
+    console.log("window smol");
+    $("input[type='text']").attr("placeholder", "Search");
+  }
+
+  function filterPokemon(e) {
+    val = $("input[type='text']").val();
+    console.log(val);
+    if (!val) {
+      if ($("#btn-load-pokemon").css("display") == "none") {
+        $("#btn-load-pokemon").show();
+      }
+      $(".poke-row").empty();
+      loadData(1, 16);
+    } else {
+      flag = 3;
+
+      for (x in pokemonList) {
+        if (pokemonList[x].name.toLowerCase() == val.toLowerCase()) {
+          console.log("yes!");
+          $(".poke-row").empty();
+          addListItem(pokemonList[x]);
+          loadPokesAnim();
+          return;
+        }
+      }
+
+      pokemonList = [];
+      $(".poke-row").empty();
+      $(".poke-row").append(loadingWrapper);
+      $("#btn-load-pokemon").hide();
+      getNames().then((names) => {
+        let results = names.filter((pokeName) => pokeName.toLowerCase().includes(val));
+
+        if (results.length > 0) {
+          console.log("yeppers");
+          console.log(results);
+
+          for (x in results) {
+            let url = `https://pokeapi.co/api/v2/pokemon/${results[x].toLowerCase()}`;
+            pokemonList.push(fetch(url).then((res) => res.json()));
+          }
+
+          Promise.all(pokemonList).then((poke) => {
+            console.log(poke);
+            console.log("success");
+            $(".poke-row").empty();
+            gen = 0;
+            for (x in poke) {
+              pokemonList = poke.map((item) => ({
+                name: item.name.charAt(0).toUpperCase() + item.name.slice(1),
+                id: item.id,
+                imageUrl: item.sprites.other["official-artwork"].front_default,
+                types: item.types.map((types) => types.type.name),
+              }));
+            }
+
+            console.log(pokemonList);
+
+            for (x in pokemonList) {
+              addListItem(pokemonList[x]);
+            }
+            loadPokesAnim();
+          });
+        } else {
+          console.log("Whoops!");
+          loadingWrapper.remove();
+          $(".poke-row").append("<span id='no-results-msg'>No Pokémon matched your search</span><img id='no-result-img' src='img/crying.gif'>");
+          return;
+        }
+      });
+    }
+  }
+
+  async function getNames() {
+    return fetch("pokemonNames.txt")
+      .then((res) => res.text())
+      .then((text) => {
+        // console.log(JSON.parse(text));
+        return JSON.parse(text);
+      })
+      .catch((e) => console.error(e));
+  }
+
+  // getNames().then((val) => console.log(val));
+
   function loadData(num, max) {
     pokemonList = [];
 
@@ -111,50 +366,25 @@ let pokemonRepository = (function () {
           addListItem(poke);
         });
       })
-      .then(() => loadPokesAnim());
+      .then(() => {
+        loadPokesAnim();
+      });
   }
 
-  $("#btn-load-pokemon").on("click", function () {
-    $("#btn-load-pokemon").remove();
-    loadData(offset + 1, offset + 16);
-    $("#pokelist").append($("<observer></obeserver>"));
-
-    setTimeout(async () => {
-      const intersectionObserver = new IntersectionObserver(async function (
-        entries
-      ) {
-        // If intersectionRatio is 0, the target is out of view
-        // and we do not need to do anything.
-        console.log(entries);
-        if (entries[0].isIntersecting) {
-          $("observer").remove();
-          console.log("SEEN!!");
-          $(".poke-row").append(loadingWrapper);
-          loadingWrapper.addClass("display");
-          await delay(1000);
-
-          // intersectionObserver.unobserve($("observer")[0]);
-          console.log("NOT OBSERVING");
-
-          loadData(offset + 1, offset + 16);
-
-          setTimeout(() => {
-            $("#pokelist").append($("<observer></obeserver>"));
-            intersectionObserver.observe($("observer")[0]);
-            console.log("OBSERVING");
-          }, 1800);
-        }
-      });
-      // start observing
-      intersectionObserver.observe($("observer")[0]);
-    }, 1800);
-  });
-
   async function loadList(num, max) {
-    loadingWrapper.addClass("display");
-    // await delay(1000)
+    if (flag == 0) {
+      $(".poke-row").append(loadingWrapper);
+      loadingWrapper.addClass("display");
+      // await delay(1500);
+    }
 
-    offset = max;
+    offset = checkGen(gen, num, max);
+    max = offset;
+
+    if (end == 1) {
+      console.log("end is equal to 1");
+      return;
+    }
 
     for (num; num <= max; num++) {
       const url = `https://pokeapi.co/api/v2/pokemon/${num}`;
@@ -213,6 +443,8 @@ let pokemonRepository = (function () {
 
     modalTitle.empty();
     modalBody.empty();
+
+    // MAKE NEW LOADING WRAPPER!! //
     modalBody.append(loadingWrapper);
     loadingWrapper.addClass("display");
     // await delay(1000);
@@ -232,9 +464,7 @@ let pokemonRepository = (function () {
         poke.types = details.types.map((types) => types.type.name);
         poke.stats = details.stats.map(function (item) {
           return {
-            name: item.stat.name.replace(/(^\w)|([-\s]\w)/g, (letter) =>
-              letter.toUpperCase()
-            ), //Capitalize beginning of every word using regex
+            name: item.stat.name.replace(/(^\w)|([-\s]\w)/g, (letter) => letter.toUpperCase()), //Capitalize beginning of every word using regex
             value: item.base_stat,
           };
         });
@@ -263,8 +493,7 @@ let pokemonRepository = (function () {
     poke.stats.forEach(function (stat) {
       statsItem = $('<div class="stats-wrapper"></div>');
       let statsName = $(`<p class="grid-title"> ${stat.name} </p>`);
-      let statsProgress =
-        $(`<div class="progress progress-striped active" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="255">
+      let statsProgress = $(`<div class="progress progress-striped active" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="255">
       <div class="progress-bar progress-bar-success" style="width: 0%"></div>
     </div>`);
       statsProgress.attr("aria-valuenow", stat.value);
@@ -278,7 +507,7 @@ let pokemonRepository = (function () {
         .children("div")
         .children(".progress-bar")
         .animate(
-          { width: stat.value / 2.55 + "%" },
+          {width: stat.value / 2.55 + "%"},
           1750,
           "easeOutBounce" //Pokemon stats go from 0 to 255 so in order to get the % width value from 0% to 100% we divide by 2.55
         );
@@ -303,14 +532,12 @@ let pokemonRepository = (function () {
       modalInfo.addClass("modal-info-wrapper");
 
       let imageWrapper = $("<div></div>");
-      let image = $("<img />", { src: poke.imageUrl });
+      let image = $("<img />", {src: poke.imageUrl});
       imageWrapper.addClass("modal-info-image-wrapper");
       imageWrapper.append(image);
       modalInfo.append(imageWrapper);
 
-      let infoWrapper = $(
-        '<div class="container text-center modal-info-stats-grid"></div>'
-      );
+      let infoWrapper = $('<div class="container text-center modal-info-stats-grid"></div>');
       let infoRow = $('<div class="row"></div>');
       infoWrapper.append(infoRow);
       infoRow.append(infoItem(poke, "Height", `${poke.height} m`));
@@ -328,16 +555,11 @@ let pokemonRepository = (function () {
   }
 
   function pokeCursors() {
-    let randomCursor = () =>
-      Math.floor(
-        Math.random() * (Math.floor(12) - Math.ceil(1)) + Math.ceil(1)
-      );
+    let randomCursor = () => Math.floor(Math.random() * (Math.floor(12) - Math.ceil(1)) + Math.ceil(1));
     let anchorList = document.getElementsByTagName("a");
     document.body.style = `cursor: url('img/cursors/${randomCursor()}.cur'), auto;`;
     for (let i = 0; i < anchorList.length; i++) {
-      anchorList[
-        i
-      ].style = `cursor: url('img/cursors/${randomCursor()}.cur'), auto;`;
+      anchorList[i].style = `cursor: url('img/cursors/${randomCursor()}.cur'), auto;`;
     }
   }
 
@@ -364,7 +586,7 @@ let pokemonRepository = (function () {
     getAll: getAll,
     addListItem: addListItem,
     // largestPokeNote: largestPokeNote,
-    // filterPokemon: filterPokemon,
+    filterPokemon: filterPokemon,
     loadList: loadList,
     loadDetails: loadDetails,
     pokeCursors: pokeCursors,
