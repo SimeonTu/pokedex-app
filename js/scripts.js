@@ -598,6 +598,16 @@ let pokemonRepository = (function () {
       //Show shorter stat number if progress bar is too small
       if (poke.stats[x].value / 2.55 < 10) {
         statsProgress.children("div").html(`${poke.stats[x].value}`);
+        statsProgress.children("div").css("padding", "0");
+      } else if ($(window).width() < 576 && poke.stats[x].value / 2.55 < 35) {
+        statsProgress.children("div").css("text-align", "center");
+        if (poke.stats[x].value / 2.55 < 25) {
+          statsProgress.children("div").css("padding", "0");
+          statsProgress.children("div").html(`${poke.stats[x].value}`);
+        } else {
+          statsProgress.children("div").css("padding", "0");
+          statsProgress.children("div").html(`${poke.stats[x].value}/255`);
+        }
       } else {
         statsProgress.children("div").html(`${poke.stats[x].value}/255`);
       }
