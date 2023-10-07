@@ -1,7 +1,7 @@
 <svg style="opacity:0.5; transform:rotate(145deg);" id="Layer_1" data-name="Layer 1"
     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 910.13 908.95">
     <defs>
-        <style>.cls-1{fill:#fff;}.cls-2{fill:#999999;}.cls-3{fill:#999999;}</style>
+        <style>.cls-1{fill:#fff;opacity:0;}.cls-2{fill:#999999;}.cls-3{fill:#999999;}</style>
     </defs>
     <title>Pokeball</title>
     <path class="cls-1" d="M337,730c.61-252,204.75-455.12,456.36-454.09,251.82,1,454.28,204.19,453.77,455.38s-204.7,454.42-455.63,453.56C539.59,1184,336.4,980.67,337,730Z" transform="translate(-337 -275.94)"/>
