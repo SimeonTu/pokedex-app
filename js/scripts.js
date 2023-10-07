@@ -495,9 +495,9 @@ let pokemonRepository = (function () {
   function loadPokesAnim() {
     let counter = 16;
 
-    if (window.matchMedia("(max-width: 576px)").matches) {
-      $(".poke-item-col").show();
-    } else {
+    // if (window.matchMedia("(max-width: 576px)").matches) {
+    //   $(".poke-item-col").show();
+    // } else {
       flag = 3;
       console.log("flag within anim func: " + flag);
       for (let i = 0; i < pokemonList.length; i++) {
@@ -578,7 +578,7 @@ let pokemonRepository = (function () {
       //       $(this).next().show(500);
       //     });
       // });
-    }
+    // }
   }
 
   async function loadDetails(poke) {
