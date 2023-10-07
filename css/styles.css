@@ -496,10 +496,18 @@ footer a span {
         margin-bottom: 15px;
     }
 
+    .gen-dropdown {
+        margin-left: 0;
+    }
+
     .gen-dropdown-menu {
         position: relative;
         top: 4px;
         /* transform: translate(-5vw, 0); */
+    }
+
+    #gen-dropdown-btn {
+        margin: 0 auto;
     }
 
     #search-div {
