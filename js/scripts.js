@@ -116,51 +116,43 @@ let pokemonRepository = (function () {
 
   function toggleButton() {
     let dropdown = $(".gen-dropdown-menu");
+    let btn = $("#gen-dropdown-btn");
 
     if (dropdown.hasClass("toggle")) {
+      dropdown.toggleClass("toggle");
+      btn.css("background-color", "#5c636a")
       dropdown.slideDown();
-      dropdown.toggleClass("toggle");
     } else {
-      dropdown.slideUp();
       dropdown.toggleClass("toggle");
+      btn.css("background-color", "#6c757d")
+      dropdown.slideUp();
     }
   }
 
   $("#gen-dropdown-btn").on("click", toggleButton);
+
   $(window).on("click", (e) => {
     if ($(".gen-dropdown-menu").css("display") == "block") {
-      if (!Array.from(e.target.classList).includes("dropdown-item") && e.target.id != "gen-dropdown-btn") {
+      if (!Array.from(e.target.classList).includes("dropdown-item") && e.target.id != "gen-dropdown-btn" && e.target.id != "hamburger") {
         toggleButton();
       }
     }
   });
 
-  /*
-    console.log("test");
-  
-    let element = $(".gen-dropdown-menu");
-    if (element.hasClass("toggle")) {
-      console.log("yes")
-      // element.style.height =
-      //   Array.prototype.reduce.call(
-      //     element.childNodes,
-      //     function (p, c) {
-      //       return p + (c.offsetHeight || 0);
-      //     },
-      //     0
-      //   ) + "px";
-      //   $(".gen-dropdown-menu").css("border", "1px solid grey");
-      // $(".gen-dropdown-menu").hide()
-      $(".gen-dropdown-menu").slideDown("slow", "linear");
-      element.removeClass("toggle")
+  $(window).scroll(function () {
+    if ($(this).scrollTop() > 450) {
+      $('#back-to-top').fadeIn();
     } else {
-      // element.style.height = "0px";
-      // setTimeout(() => $(".gen-dropdown-menu").css("border", "none"), 900);
-      $(".gen-dropdown-menu").slideUp();
-      element.addClass("toggle")
+      $('#back-to-top').fadeOut();
     }
-  }
-  */
+  });
+  // scroll body to 0px on click
+  $('#back-to-top').click(function () {
+    $('body,html').animate({
+      scrollTop: 0
+    }, 600, "easeOutQuad");
+    return false;
+  });
 
   function checkGen(gen, num, max) {
     offset = max;
@@ -247,6 +239,12 @@ let pokemonRepository = (function () {
         end = 0;
       }
 
+      //Set dropdown button text to current generation and add hamburger icon
+      $("#gen-dropdown-btn").text($(`.gen-${generation}`).html()).append($("<span id='hamburger'> ☰</span>"))
+
+      //Clear value from search field
+      $("input[type='text']").val("")
+
       toggleButton();
 
       gen = generation;
@@ -329,6 +327,8 @@ let pokemonRepository = (function () {
   }
 
   function filterPokemon(e) {
+    $("#gen-dropdown-btn").html("Generation <span id='hamburger'>☰</span>")
+
     val = $("input[type='text']").val();
     console.log(val);
     if (!val) {
@@ -355,7 +355,7 @@ let pokemonRepository = (function () {
       $(".poke-row").append(loadingWrapper);
       $("#btn-load-pokemon").hide();
       getNames().then((names) => {
-        let results = names.filter((pokeName) => pokeName.toLowerCase().includes(val));
+        let results = names.filter((pokeName) => pokeName.includes(val.toLowerCase()));
 
         if (results.length > 0) {
           console.log("yeppers");

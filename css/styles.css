@@ -45,11 +45,6 @@ body {
     margin: 0 0 25px 0;
 }
 
-#poke-menu span {
-    font-weight: bold;
-    margin-right: 10px;
-}
-
 #poke-menu .btn {
     font-size: inherit;
     /* width: auto;
@@ -72,14 +67,28 @@ body {
     /* margin: 0 auto; */
 }
 
-.gen-dropdown button {
+#gen-dropdown-btn {
     margin: 0 auto;
+}
+
+#gen-dropdown-btn span {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.gen-dropdown {
+    /* font-size: 0.5rem; */
+}
+
+.toggle {
+    background-color: #5c636a;
 }
 
 .gen-dropdown-menu {
 
     border-radius: 5px;
-    border: 1px solid grey;
+    /* border: 1px solid grey; */
+    box-shadow: 2.5px 2.5px 10px black;
     padding: 0;
 
     position: absolute;
@@ -214,6 +223,9 @@ body {
     -webkit-transition: none !important;
     transition: none !important;
 }
+html {
+    scroll-behavior: auto !important
+}
 
 .progress-bar {
     background-color: rgb(0, 123, 0)
@@ -247,7 +259,7 @@ body {
     /* border: 1px solid rgb(0, 0, 0); */
     background-color: rgb(255, 255, 255);
     border-radius: 8px;
-    /* box-shadow: rgb(59, 59, 59) 0px 2px 2px -2px, rgb(0, 0, 0) 0px 1px 1px -1px; */
+    box-shadow: rgb(59, 59, 59) 0px 2px 2px -2px, rgb(0, 0, 0) 0px 1px 1px -1px;
     outline: 0px;
 
     text-decoration: none;
@@ -374,6 +386,22 @@ body {
     margin: 0 auto;
 }
 
+.back-to-top {
+    position: relative;
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    border: 0;
+    box-shadow: 2.5px 2.5px 10px black;
+    background-color: rgba(255, 255, 255, 0.95);
+    display: none;
+}
+
+.back-to-top i {
+    opacity: 1;
+}
+
+
 footer {
     display: flex;
     align-content: center;
@@ -494,6 +522,17 @@ footer a span {
 
     #no-results-msg {
         font-size: 4vw;
+    }
+
+    #btn-load-pokemon {
+        height: auto;
+        width: auto;
+        padding: 2vw 4vw;
+        font-size: 7vw;
+    }
+
+    footer {
+        font-size: 3.5vw;
     }
 
   }
