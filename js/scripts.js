@@ -425,7 +425,7 @@ let pokemonRepository = (function () {
   }
 
   async function loadList(num, max) {
-    if (flag == 0) {
+    if (flag == 0 || flag == 3) {
       $(".poke-row").append(loadingWrapper);
       loadingWrapper.addClass("display");
       // await delay(1500);
