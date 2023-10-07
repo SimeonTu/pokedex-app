@@ -146,6 +146,19 @@ body {
     justify-content: center;
     padding: 20px 0;
 }
+
+.modal-content {
+    background-color: transparent;
+    border: 0;
+    filter: drop-shadow(5px 5px 10px rgba(0,0,0,0.5));
+}
+
+.modal-body {
+    padding: 0;
+    /* border-radius: 25px; */
+    /* border: 5px black solid; */
+}
+
   
 .modal-header .btn-close {
     position: absolute;
@@ -163,7 +176,6 @@ body {
     justify-content: center;
 }
 
-
 .modal-title span {
     /* padding: 0 0 0 0.5rem; */
     color: rgb(67, 67, 67);
@@ -172,45 +184,91 @@ body {
 
 .modal-info-wrapper {
     display: flex;
-    justify-content: space-evenly;
-    align-content: space-evenly;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    border-radius: 25px;
+    /* border: 5px red solid */
 }
 
 .modal-info-image-wrapper {
-    width: 50%;
+    position: relative;
+    display: flex;
+    border-radius: 25px;
+    padding: 15px 0;
+    box-shadow: inset 0 -2px 20px rgba(0,0,0,0.15);
+    z-index: 999;
 }
 
 .modal-info-image-wrapper img {
-    width: 100%;
+    width: 50%;
+    margin: 0 auto;
 }
 
 .modal-info-stats-grid {
-    width: 50%;
+    margin-top: -25px;
+    padding: 50px 40px 40px 40px;
+    width: 100%;
     /* font-size: 1.25rem; */
     background-color: rgb(148, 148, 231);
-    border-radius: 5%;
+    border-radius: 0 0 25px 25px;
+}
+
+.modal-poke-name {
+    font-family: PokemonGb;
+    font-weight: bold;
+    font-size: 1.25rem;
+}
+
+.modal-poke-id {
+    color: rgba(255, 255, 255, 1);
+    text-shadow: 2px 2px rgba(0,0,0,0.5);
+    /* opacity: 0.85; */
 }
 
 .grid-item {
+    font-size: 16px;
     text-align: center;
     margin-top: 10px;
-    font-size: 16px;
+    padding: 0;
 }
 
 .grid-title {
+    font-size: 1.25rem;
     color: white;
-    text-shadow: black 1px 1px;
-    margin-bottom: 0;
+    /* text-shadow: 2px 2px rgba(0, 0, 0, 0.95); */
+    text-shadow: 0 0 2.5px black;
+    margin-bottom: 10px;
 }
 
 .grid-description {
+    font-size: 2rem;
+    /* font-weight: bold; */
     color: black;
-    margin-bottom: 5px;
+    margin-bottom: 0;
 }
 
 .stats-wrapper {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr 3.5fr;
     margin-bottom: 10px;
 }
+
+.stats-wrapper .grid-title {
+    font-size: 1rem;
+    text-shadow: 0 0px 5px black;
+    margin: 0;
+    text-align: center;
+    /* padding-right: 10px; */
+}
+
+.grid-title.stats {
+    font-weight: bold;
+    text-shadow: 0 0 5px black;
+}
+
 
 /* Fix bootstrap transition */
 .progress.active .progress-bar {
@@ -221,8 +279,17 @@ html {
     scroll-behavior: auto !important
 }
 
+.progress {
+    /* width: 60%; */
+    height: 17px;
+    padding: 0;
+    box-shadow: 1px 1px 5px black;
+}
+
 .progress-bar {
-    background-color: rgb(0, 123, 0)
+    text-shadow: 1px 1px black;
+    text-align: right;
+    padding-right: 5px;
 }
 
 .poke-types {
@@ -244,7 +311,7 @@ html {
     justify-content: center;
     
     white-space: nowrap;
-    cursor: default;
+    cursor: pointer;
 
     box-sizing:unset;
     vertical-align: middle;
@@ -266,6 +333,15 @@ html {
     /* height: 25px; */
     padding: 0.10em 0.35em;
 
+}
+
+.modal-body .pill {
+    text-shadow: none;
+    height: 25px;
+    width: 150px;
+    margin: 0;
+    cursor: unset;
+    font-size: 1.05rem;
 }
 
 .poke-item-col {
@@ -311,7 +387,7 @@ html {
     margin: 0 5px 10px;
     /* border: 2px solid black; */
     border-radius: 5px;
-    box-shadow: 0px 0 5px 0px black;
+    box-shadow: 0px 0 2.5px 0px black;
     cursor: pointer;
     background-color: white;
     transition: filter 0.25s;
@@ -433,10 +509,6 @@ html {
     background-color: rgba(255, 255, 255, 0.95);    
 }
 
-.back-to-top i {
-    opacity: 1;
-}
-
 
 footer {
     display: flex;
@@ -555,13 +627,42 @@ footer a span {
         padding: 0;
     }
 
-    .col {
+    .poke-row .col {
         flex-basis: auto;
     }
 
     #wrapper {
         /* width: 990px; */
         /* padding: 0 50px; */
+    }
+
+    .modal-dialog {
+        margin: 0;
+    }
+
+    .modal-poke-name {
+        font-size: 7vw;
+    }
+
+    .modal-info-stats-grid {
+        padding: 50px 20px 20px 20px;
+    }
+
+    .modal-body .pill {
+        width: 30vw;
+        font-size: 4.5vw;
+    }
+
+    .stats-wrapper .grid-title {
+        font-size: 3.75vw;
+    }
+
+    .grid-title {
+        font-size: 4.5vw;
+    }
+
+    .grid-description {
+        font-size: 7vw;
     }
 
     #no-results-msg {
@@ -574,6 +675,15 @@ footer a span {
         padding: 2vw 4vw;
         font-size: 7vw;
     }
+    
+    /* .back-to-top {
+        width: 10vh;
+        height: 10vh;
+    }
+
+    .back-to-top img {
+        width: 80%;
+    } */
 
     footer {
         font-size: 3.5vw;
