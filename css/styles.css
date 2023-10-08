@@ -27,11 +27,23 @@
 
 body {
     font-family: "Flexo-Medium", Arial, Helvetica, sans-serif;
-    background: linear-gradient(356deg, rgba(255,170,241,1) 0%, rgba(217,170,255,1) 100%);
+}
+
+#background {
+    background: linear-gradient(356deg, rgba(255,170,241,0.5) 0%, rgba(217,170,255,0.5) 100%);
+    min-height: 100%;
+    min-width: 100%;
+    width: 100%;
+    height: auto;
+    position: fixed;
+    top:0;
+    left:0;
+    z-index: -9999;
 }
 
 #main-heading {
     font-family: PokemonGb;
+    font-size: 3rem;
     margin: 2rem 0 2.5rem;
     text-align: center;
 }
@@ -100,10 +112,6 @@ body {
 .gen-dropdown-menu a {
     padding: 4px 16px;
     list-style-type: none
-}
-
-.gen-dropdown-menu a:hover {
-    background-color: rgb(243, 243, 243);
 }
 
 .gen-dropdown-menu.show {
@@ -393,27 +401,17 @@ html {
     transition: filter 0.25s;
 }
 
-.poke-item:hover {
-    filter: drop-shadow(0 0 6px rgba(0,0,0,0.8));
-}
-
-.poke-item:hover .poke-thumbnail-bg {
-    transform: rotate(45deg) scale(1.1);
-}
-
-.poke-item:hover img {
-    transform: scale(1.05);
-}
-
 /* .poke-item:hover {
     transform: scale(1.1);
     z-index: 9999;
 } */
 
 .poke-info {
+    position: relative; 
     padding: 10px;
-    background-color: rgb(220, 220, 220);
     border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.5);
+    box-shadow: inset 0 -2.5px 2.5px rgba(0,0,0,0.15);
 }
 
 .poke-info .poke-id {
@@ -425,9 +423,9 @@ html {
 }
 
 .poke-info .poke-name {
-    padding-left: 15px;
+    padding-left: 10px;
     margin-bottom: 10px;
-    font-size: 1.5rem;
+    font-size: 1.2rem
 }
 
 .poke-thumbnail {
@@ -546,6 +544,24 @@ footer a img {
 footer a span {
     padding-left: 0.25rem;
 }
+
+@media (hover: hover) {
+    .gen-dropdown-menu a:hover {
+        background-color: rgb(243, 243, 243);
+    }
+
+    .poke-item:hover {
+        filter: drop-shadow(0 0 5px rgba(0,0,0,0.6));
+    }
+
+    .poke-item:hover img {
+        transform: scale(1.05);
+    }
+
+    .poke-item:hover .poke-thumbnail-bg{
+        transform: rotate(45deg) scale(1.1);
+    }
+  }
 
 @media only screen and (576px > width) {
 
