@@ -519,7 +519,7 @@ async function loadList(num, max) {
     pokemonList = poke.map((item) => ({
       name: item.name.charAt(0).toUpperCase() + item.name.slice(1),
       id: item.id,
-      imageUrl: item.sprites.other == null ? missingNo : item.sprites.other["official-artwork"].front_default,
+      imageUrl: item.sprites.other["official-artwork"].front_default == null ? missingNo : item.sprites.other["official-artwork"].front_default,
       types: item.types.map((types) => types.type.name),
     }));
 
