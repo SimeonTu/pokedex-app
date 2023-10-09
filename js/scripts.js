@@ -369,7 +369,9 @@ let mediaQuery = window.matchMedia("(max-width: 576px), (max-height: 850px)");
 function handleTabletChange(e) {
   // Check if the media query is true
   if (e.matches) {
-    $("input[type='text']").attr("placeholder", "Search");
+    if (window.innerWidth <= 576) {
+      $("input[type='text']").attr("placeholder", "Search");
+    }
     $(".modal-dialog").addClass("modal-dialog-centered");
   } else {
     $("input[type='text']").attr("placeholder", "");

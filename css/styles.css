@@ -681,15 +681,107 @@ footer a span {
     }
   }
 
-@media only screen and (850px > height) and (width > 475px) {
+@media only screen and (850px > height) and (width > 576px) {
     .modal-dialog-scrollable {
         /* align-items: center;
         justify-content: center; */
-        margin: 0 auto;
+        margin: 0;
+        max-width: none;
+        max-height: none;
+        width: 100vw;
         height: 100vh;
-    }    
+    }
+
+    .modal-body {
+        display: flex;
+        /* flex-direction: row; */
+    }
+
+    .modal-info-stats-grid {
+        padding: 5px 20px 20px 20px;
+    }
+
+    .row.d-flex .col-12 {
+        /* padding: 0 10px; */
+    }
+
+    .modal-info-image-wrapper img {
+        object-fit: contain;
+        height: auto;
+        width: 30vw;
+    }
+
+    .modal-poke-name {
+        /* font-size: 5vh; */
+    }
+
+    .row.d-flex .poke-types {
+        margin-bottom: 1.5vh;
+    }
+
+    .modal-body .pill {
+        /* height: 5vh; */
+        /* width: 15vw; */
+        /* font-size: 3.75vh; */
+    }
+
+    .grid-item {
+        margin-bottom: 1vh;
+    }
+
+    .grid-title {
+        /* font-size: 3vh; */
+    }
+
+    .grid-title.stats {
+        margin-bottom: 1vh;
+    }
+
+    .stats-wrapper .grid-title {
+        /* font-size: 2vh; */
+    }
+
+    .grid-description {
+        /* font-size: 3vh; */
+    }
+
+    .progress {
+        /* height: 3vh; */
+    }
+
+    .progress-bar {
+        /* font-size: 2.5vh; */
+    }
+
+
+    #no-results-msg {
+        /* font-size: 4vh; */
+    }
+
+    #btn-load-pokemon {
+        height: auto;
+        width: auto;
+        padding: 2vh 4vh;
+        /* font-size: 4vh; */
+    }
   }
 
+@media only screen and (850px > height) and (875px < width) {
+    .modal-dialog-scrollable {
+        width: 875px;
+        margin: 0 auto;
+    }
+
+    .modal-info-image-wrapper img {
+        object-fit: contain;
+        height: auto;
+        width: 260px;
+    }
+
+    .modal-body .pill {
+        width: 143px;
+    }
+}
 
 @media only screen and (576px > width) {
 
@@ -859,6 +951,56 @@ footer a span {
     }
 
   }
+
+@media only screen and (430px > width) {
+    /* .modal .row {
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .modal .col-4 {
+        width: auto;
+    } */
+
+    .modal-poke-name {
+        font-size: 1.1rem;
+    }
+
+    .modal-body .pill {
+        width: 6rem;
+        height: 2rem;
+        font-size: 1rem;
+    }
+
+    .grid-title {
+        font-size: 1rem;
+    }
+
+    .grid-title.stats {
+        font-size: 0.9rem;
+    }
+
+    .grid-description {
+        font-size: 1.1rem;
+    }
+
+    .stats-wrapper {
+        grid-template-columns: 1fr;
+    }
+
+    .stats-wrapper .grid-title {
+        font-size: 0.75rem;
+        margin-bottom: 0.15rem;
+    }
+
+    .progress {
+        height: 25px;
+    }
+
+    .progress-bar {
+        font-size: 0.8rem;
+    }
+}
 
 @media only screen and (width >= 576px) {
 
