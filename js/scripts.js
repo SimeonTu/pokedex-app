@@ -365,7 +365,7 @@ $("form").on("submit", (e) => {
 });
 
 // On small screens there is no "Search" button but there's a placeholder text indicating what the input field is for instead
-let mediaQuery = window.matchMedia("(max-width: 576px)");
+let mediaQuery = window.matchMedia("(max-width: 576px), (max-height: 850px)");
 function handleTabletChange(e) {
   // Check if the media query is true
   if (e.matches) {
