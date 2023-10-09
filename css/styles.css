@@ -706,12 +706,13 @@ footer a span {
     }
 
     .modal-info-image-wrapper img {
-        object-fit: contain;
-        height: auto;
+        /* object-fit: contain; */
+        /* height: auto; */
         width: 30vw;
     }
 
     .modal-poke-name {
+        margin-top: 1rem;
         /* font-size: 5vh; */
     }
 
@@ -891,10 +892,15 @@ footer a span {
 
     .modal-poke-name {
         font-size: 5vw;
+        margin-bottom: 0.6rem;
     }
 
     .modal-info-stats-grid {
         padding: 5px 20px 20px 20px;
+    }
+
+    .row.d-flex .poke-types {
+        margin-bottom: 0.6rem;
     }
 
     .modal-body .pill {
@@ -906,9 +912,14 @@ footer a span {
         /* padding: 0 10px; */
     }
 
+    .col-4.grid-item {
+        margin-bottom: 0.6rem;
+    }
+
     .stats-wrapper .grid-title {
         font-size: 2.5vw;
     }
+    
 
     .progress {
         height: 5vw;
@@ -920,6 +931,10 @@ footer a span {
 
     .grid-title {
         font-size: 3.5vw;
+    }
+
+    .grid-title.stats {
+        margin-bottom: 0.6rem;
     }
 
     .grid-description {
@@ -964,12 +979,21 @@ footer a span {
 
     .modal-poke-name {
         font-size: 1.1rem;
+        margin-bottom: 0.6rem;
+    }
+
+    .modal-info-stats-grid .poke-types {
+        margin-bottom: 0.4rem;
     }
 
     .modal-body .pill {
-        width: 6rem;
-        height: 2rem;
+        width: 5.5rem;
+        height: 1.5rem;
         font-size: 1rem;
+    }
+
+    .col-4.grid-item {
+        margin-bottom: 0.6rem;
     }
 
     .grid-title {
@@ -977,7 +1001,8 @@ footer a span {
     }
 
     .grid-title.stats {
-        font-size: 0.9rem;
+        font-size: 1rem;
+        margin-bottom: 0;
     }
 
     .grid-description {
@@ -986,15 +1011,16 @@ footer a span {
 
     .stats-wrapper {
         grid-template-columns: 1fr;
+        margin-bottom: 0.4rem;
     }
 
     .stats-wrapper .grid-title {
         font-size: 0.75rem;
-        margin-bottom: 0.15rem;
+        /* margin-bottom: 0.15rem; */
     }
 
     .progress {
-        height: 25px;
+        height: 7vw;
     }
 
     .progress-bar {

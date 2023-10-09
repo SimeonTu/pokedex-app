@@ -815,6 +815,7 @@ async function showModal(poke) {
     // infoWrapper.css("background", "linear-gradient(356deg, rgba(217,170,255,1) 0%, rgba(255,170,241,1) 100%)");
     let infoRow = $('<div class="row d-flex justify-content-evenly"></div>');
     infoWrapper.append(infoRow);
+    infoWrapper.append($('<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>'));
 
     //Set Pokemon ID to this format: "#0000"
     let id = poke.id < 10 ? `#000${poke.id}` : poke.id >= 10 && poke.id < 100 ? `#00${poke.id}` : poke.id >= 100 && poke.id < 1000 ? `#0${poke.id}` : `#${poke.id}`;
@@ -828,10 +829,8 @@ async function showModal(poke) {
 
     infoRow.append(infoItem(poke, "Height", `${poke.height}m`));
     infoRow.append(infoItem(poke, "Weight", `${poke.weight}kg`));
-
     infoRow.append(statsItem(poke));
 
-    imageWrapper.append($('<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>'));
     modalBody.append(imageWrapper);
     modalBody.append(infoWrapper);
 
