@@ -708,7 +708,7 @@ async function loadDetails(poke) {
   modalTitle.empty();
   modalBody.empty();
 
-  modalBody.css("background-color", "white");
+  modalBody.css("background", "white");
   modalBody.append(loadingWrapper);
   loadingWrapper.addClass("display");
   // await delay(1000);
@@ -775,7 +775,7 @@ function statsItem(poke) {
       }
     } else if ($(window).width() < 576 && poke.stats[x].value / 2.55 < 35) {
       statsProgress.children("div").css("text-align", "center");
-      if (poke.stats[x].value / 2.55 < 25) {
+      if (poke.stats[x].value / 2.55 < 20) {
         statsProgress.children("div").css("padding", "0");
         statsProgress.children("div").html(`${poke.stats[x].value}`);
       } else {
