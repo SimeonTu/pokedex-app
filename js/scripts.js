@@ -721,7 +721,7 @@ async function loadDetails(poke) {
     .then(function (details) {
       // Now we add the details to the item
       poke.id = details.id;
-      poke.imageUrl = details.sprites.other["official-artwork"].front_default;
+      poke.imageUrl = details.sprites.other["official-artwork"].front_default == null ? missingNo : details.sprites.other["official-artwork"].front_default;
       poke.height = details.height / 10; //divided by 10 because data is stored in decimeters
       poke.weight = details.weight / 10;
       poke.types = details.types.map((types) => types.type.name);
