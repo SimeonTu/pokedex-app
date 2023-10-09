@@ -218,16 +218,10 @@ body {
 }
 
   
-.modal-header .btn-close {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    cursor: pointer;
-    appearance: none;
-    -webkit-appearance: none;
-    border: 0;
-    margin: 0;
-    text-decoration: underline;
+.btn-close {
+    position:absolute;
+    right:20px;
+    top:15px;
 }
 
 .modal-header {
@@ -692,22 +686,10 @@ footer a span {
         /* align-items: center;
         justify-content: center; */
         margin: 0 auto;
-        height: unset;
-    }
-    
-    .modal-content {
-        /* align-items: center;
-        justify-content: center; */
-        height: 100vh
-    }
-
-    .modal-body {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
+        height: 100vh;
+    }    
   }
+
 
 @media only screen and (576px > width) {
 

@@ -828,7 +828,7 @@ async function showModal(poke) {
 
     infoRow.append(statsItem(poke));
 
-    imageWrapper.append($('<button type="button" style="position:absolute;right:20px;top:15px" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>'));
+    imageWrapper.append($('<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>'));
     modalBody.append(imageWrapper);
     modalBody.append(infoWrapper);
 
