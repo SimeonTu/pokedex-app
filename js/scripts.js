@@ -421,6 +421,7 @@ function filterPokemon(e) {
       if (results.length > 0) {
         console.log("yeppers");
         console.log(results);
+        $("#now-showing-div span").text(`"${val}"`);
 
         if (results.length > 16) {
           loadBtn.show();
