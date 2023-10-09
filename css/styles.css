@@ -694,25 +694,29 @@ footer a span {
 
     .modal-body {
         display: flex;
-        /* flex-direction: row; */
+        padding: 2.5rem 1.5rem 2.5rem 1.5rem;
     }
 
     .modal-info-stats-grid {
-        padding: 5px 20px 20px 20px;
+        padding: 0;
     }
 
     .row.d-flex .col-12 {
         /* padding: 0 10px; */
     }
 
+    .modal-info-image-wrapper {
+        padding: 0;
+    }
+
     .modal-info-image-wrapper img {
-        /* object-fit: contain; */
-        /* height: auto; */
+        object-fit: contain;
+        height: auto;
         width: 30vw;
     }
 
     .modal-poke-name {
-        margin-top: 1rem;
+        /* margin-top: 1rem; */
         /* font-size: 5vh; */
     }
 
@@ -919,7 +923,6 @@ footer a span {
     .stats-wrapper .grid-title {
         font-size: 2.5vw;
     }
-    
 
     .progress {
         height: 5vw;
@@ -979,11 +982,11 @@ footer a span {
 
     .modal-poke-name {
         font-size: 1.1rem;
-        margin-bottom: 0.6rem;
+        margin-bottom: 2vh;
     }
 
     .modal-info-stats-grid .poke-types {
-        margin-bottom: 0.4rem;
+        margin-bottom: 1vh;
     }
 
     .modal-body .pill {
@@ -993,7 +996,7 @@ footer a span {
     }
 
     .col-4.grid-item {
-        margin-bottom: 0.6rem;
+        margin-bottom: 2vh;
     }
 
     .grid-title {
@@ -1002,7 +1005,7 @@ footer a span {
 
     .grid-title.stats {
         font-size: 1rem;
-        margin-bottom: 0;
+        margin-bottom: 1vh;
     }
 
     .grid-description {
