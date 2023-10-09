@@ -14,6 +14,7 @@
 <body>
 
     <div id="background"></div>
+    <div id="now-showing-div">Now showing: <span>All Pokémon</span></div>
 
     <!-- Modal -->
     <div class="modal fade" id="pokeModal" tabindex="-1" aria-labelledby="pokeModalLabel" aria-hidden="true">
@@ -32,7 +33,7 @@
     </div>
 
     <div id="wrapper">
-        <h1 id="main-heading">Pokedex</h1>
+        <a id="main-heading" href="">Pokedex</a>
 
         <div class="container-md" id="pokelist">
 
@@ -46,6 +47,7 @@
                             Generation <span id="hamburger">☰</span>
                         </button>
                         <ul class="gen-dropdown-menu toggle">
+                            <li><a class="dropdown-item gen-none" href="#">None</a></li>
                             <li><a class="dropdown-item gen-1" href="#">Generation I</a></li>
                             <li><a class="dropdown-item gen-2" href="#">Generation II</a></li>
                             <li><a class="dropdown-item gen-3" href="#">Generation III</a></li>

@@ -41,11 +41,49 @@ body {
     z-index: -9999;
 }
 
-#main-heading {
+#now-showing-div {
+    display: none;
+    position: fixed;
+    align-items: center;
+    justify-content: center;
+    left: 50%;
+    transform: translate(-50%);
+    top: 25px;
+    padding: 10px 15px;
+    width: auto;
+    height: 50px;
+    background-color: rgba(217,170,255,0.95);
+    border: 5px solid rgba(255,170,241,0.8);
+    border-radius: 5px;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.25);
+    color: white;
     font-family: PokemonGb;
-    font-size: 3rem;
-    margin: 2rem 0 2.5rem;
+    text-shadow: 2px 2px rgba(0, 0, 0, 1);
+    font-size: 0.8rem;
+    white-space: nowrap;
+    z-index: 9999;   
+}
+
+#now-showing-div span {
+    margin-left: 0.5rem;
+    font-weight: bold;
+    color: rgb(251, 255, 170);
+    text-shadow: 2px 2px rgba(0, 0, 0, 1);
+}
+
+#main-heading {
+    max-width: max-content;
+    text-decoration: none;
+    font-family: PokemonGb;
+    font-size: 4rem;
+    /* font-weight: bold; */
+    color: rgb(251, 255, 170);
+    /* -webkit-text-stroke: 2px rgb(128, 119, 178); */
+    /* text-shadow: 0px 0px 5px rgb(251, 255, 170); */
+    -webkit-text-stroke: 1px black;
+    margin: 2rem auto 2.5rem;
     text-align: center;
+    cursor: pointer !important;
 }
 
 #poke-menu {
@@ -77,6 +115,15 @@ body {
     margin-left: 0.5rem;
 }
 
+#gen-dropdown-btn {
+    background-color: rgba(183, 170, 255, 0.9);
+    border: 3px solid rgba(154, 144, 215, 0.9);
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
+    text-shadow: 1px 1px 2.5px rgba(0, 0, 0, 1);
+    color: rgb(251, 255, 170);
+    transition: filter 0.5s;
+}
+
 #gen-dropdown-btn span {
     font-weight: bold;
     margin-right: 5px;
@@ -100,7 +147,7 @@ body {
     position: absolute;
     background-color: white;
     z-index: 99999;
-    top: 35px;
+    top: 40px;
     left: -4px;
     /* height: 0; */
     display: none;
@@ -156,13 +203,16 @@ body {
 }
 
 .modal-content {
+    font-family: PokemonGb;
     background-color: transparent;
     border: 0;
+    border-radius: 25px;
     filter: drop-shadow(5px 5px 10px rgba(0,0,0,0.5));
 }
 
 .modal-body {
     padding: 0;
+    border-radius: 25px;
     /* border-radius: 25px; */
     /* border: 5px black solid; */
 }
@@ -205,7 +255,7 @@ body {
     display: flex;
     border-radius: 25px;
     padding: 15px 0;
-    box-shadow: inset 0 -2px 20px rgba(0,0,0,0.15);
+    /* box-shadow: inset 0 -2px 20px rgba(0,0,0,0.15); */
     z-index: 999;
 }
 
@@ -215,58 +265,70 @@ body {
 }
 
 .modal-info-stats-grid {
-    margin-top: -25px;
-    padding: 50px 40px 40px 40px;
+    padding: 15px 40px 40px 40px;
     width: 100%;
     /* font-size: 1.25rem; */
-    background-color: rgb(148, 148, 231);
+    /* background-color: rgb(148, 148, 231); */
     border-radius: 0 0 25px 25px;
 }
 
 .modal-poke-name {
     font-family: PokemonGb;
     font-weight: bold;
-    font-size: 1.25rem;
+    font-size: 1.6rem;
+    margin-bottom: 1.5rem;
 }
 
 .modal-poke-id {
     color: rgba(255, 255, 255, 1);
-    text-shadow: 2px 2px rgba(0,0,0,0.5);
+    text-shadow: 2px 2px rgba(0,0,0,1);
     /* opacity: 0.85; */
 }
 
 .grid-item {
     font-size: 16px;
     text-align: center;
-    margin-top: 10px;
     padding: 0;
+    margin-bottom: 1.5rem;
 }
 
 .grid-title {
-    font-size: 1.25rem;
-    color: white;
+    font-size: 1rem;
+    color: black;
+    margin: 0;
     /* text-shadow: 2px 2px rgba(0, 0, 0, 0.95); */
-    text-shadow: 0 0 2.5px black;
-    margin-bottom: 10px;
+    /* text-shadow: 0 0 2.5px rgb(255, 255, 255); */
 }
 
 .grid-description {
-    font-size: 2rem;
+    font-size: 1.5rem;
     /* font-weight: bold; */
-    color: black;
+    color: white;
+    text-shadow: 2px 2px rgb(255, 255, 255);
     margin-bottom: 0;
+}
+
+.poke-types {
+    display: flex;
+    padding: 0;
+    margin-bottom: 1rem;
+}
+
+.modal .poke-types {
+    justify-content: space-evenly;
 }
 
 .stats-wrapper {
     display: grid;
     align-items: center;
     grid-template-columns: 1fr 3.5fr;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 
 .stats-wrapper .grid-title {
-    font-size: 1rem;
-    text-shadow: 0 0px 5px black;
+    font-size: 0.75rem;
+    /* letter-spacing: 0.13rem; */
+    /* text-shadow: 0 0px 5px black; */
     margin: 0;
     text-align: center;
     /* padding-right: 10px; */
@@ -274,7 +336,8 @@ body {
 
 .grid-title.stats {
     font-weight: bold;
-    text-shadow: 0 0 5px black;
+    margin-bottom: 1rem;
+    /* text-shadow: 0 0 5px black; */
 }
 
 
@@ -289,13 +352,18 @@ html {
 
 .progress {
     /* width: 60%; */
-    height: 17px;
+    border-radius: 0.5rem;
+    height: 22px;
     padding: 0;
     box-shadow: 1px 1px 5px black;
+    background-color: transparent;
 }
 
 .progress-bar {
-    text-shadow: 1px 1px black;
+    font-family: "Flexo-Medium", Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 0.9rem;
+    text-shadow: 1px 1px 2px black;
     text-align: right;
     padding-right: 5px;
 }
@@ -333,7 +401,7 @@ html {
 
     text-decoration: none;
     font-weight: bold;
-    font-family: Lato, Roboto, Helvetica, Arial, sans-serif;
+    font-family: "Flexo-Medium", Arial, Helvetica, sans-serif;
     font-size: 0.8125rem;
     text-shadow: 1px 1px rgba(0, 0, 0, 1);
 
@@ -350,6 +418,7 @@ html {
     margin: 0;
     cursor: unset;
     font-size: 1.05rem;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
 }
 
 .poke-item-col {
@@ -455,10 +524,31 @@ html {
     transition: transform 0.5s;
 }
 
+
 #btn-load-pokemon {
     height: 50px;
-    width: 200px;
+    width: auto;
     margin: 25px auto 0;
+    background-color: rgba(183, 170, 255, 0.9);
+    border: 3px solid rgba(154, 144, 215, 0.9);
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
+    transition: filter 0.25s;
+
+    font-family: PokemonGb;
+    font-weight: bold;
+    font-size: 0.8rem;
+    color: rgb(251, 255, 170);
+    text-shadow: 1px 1px 2.5px rgba(0, 0, 0, 1);
+}
+
+#no-items-msg {
+    padding-top: 15px;
+    font-family: PokemonGb;
+    font-size: 1.15rem;
+    text-align: center;
+    text-decoration: underline;
+    opacity: 0.7;
+    user-select: none;
 }
 
 /* observer {
@@ -488,25 +578,25 @@ html {
     align-items: center;
     position: relative;
     position: fixed;
-    height: 60px;
-    width: 60px;
+    height: 57.5px;
+    width: 57.5px;
     padding: 10px;
     bottom: 25px;
     right: 25px;
     border: 0;
-    box-shadow: 2.5px 2.5px 10px black;
-    background-color: rgba(255, 255, 255, 0.95);
+    background-color: rgb(251, 255, 170, 0.85);
+    border: 3px solid rgba(183, 170, 255, 0.9);
+    border-radius: 25%;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.25);
     display: none;
+    transition: filter 0.5s;
+    overflow: hidden;
 }
 
 .back-to-top img {
-    width: 30px;
+    width: 27.5px;
+    filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.25));
 }
-
-.back-to-top:focus {
-    background-color: rgba(255, 255, 255, 0.95);    
-}
-
 
 footer {
     display: flex;
@@ -516,7 +606,7 @@ footer {
     width: 80%;
     margin: 30px auto 20px;
     padding: 30px 0 0;
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-family: PokemonGb;
     text-align: center;
 }
@@ -546,6 +636,34 @@ footer a span {
 }
 
 @media (hover: hover) {
+    .back-to-top:not([disabled]):not(.disabled).active,
+    .back-to-top:not([disabled]):not(.disabled):active,
+    .back-to-top:not([disabled]):not(.disabled).hover,
+    .back-to-top:not([disabled]):not(.disabled):hover{
+        color: #fff !important;
+        background-color: rgb(251, 255, 170, 0.85) !important;
+        border: 4px solid rgba(183, 170, 255, 0.9) !important;
+        filter: brightness(1.15);
+    }
+
+    #gen-dropdown-btn:not([disabled]):not(.disabled).active,
+    #gen-dropdown-btn:not([disabled]):not(.disabled):active,
+    #gen-dropdown-btn:not([disabled]):not(.disabled).hover,
+    #gen-dropdown-btn:not([disabled]):not(.disabled):hover,
+    #gen-dropdown-btn:not([disabled]):not(.disabled):focus,
+    #gen-dropdown-btn:not([disabled]):not(.disabled).focus{
+        background-color: rgba(183, 170, 255, 0.9) !important;
+        color: rgb(251, 255, 170) !important;
+    }
+
+    #gen-dropdown-btn:hover {
+        filter: brightness(1.15);
+    }
+
+    #btn-load-pokemon:hover {
+        filter: brightness(1.15);
+    }
+
     .gen-dropdown-menu a:hover {
         background-color: rgb(243, 243, 243);
     }
@@ -569,6 +687,11 @@ footer a span {
         font-size: 5vw;
         width: 100%;
         overflow-x: hidden;
+    }
+
+    #now-showing-div {
+        font-size: 3vw;
+        white-space: nowrap;
     }
     
     #main-heading {
@@ -665,28 +788,40 @@ footer a span {
     }
 
     .modal-poke-name {
-        font-size: 7vw;
+        font-size: 5vw;
     }
 
     .modal-info-stats-grid {
-        padding: 50px 20px 20px 20px;
+        padding: 5px 20px 20px 20px;
     }
 
     .modal-body .pill {
         width: 30vw;
-        font-size: 4.5vw;
+        font-size: 4vw;
+    }
+
+    .row.d-flex .col-12 {
+        /* padding: 0 10px; */
     }
 
     .stats-wrapper .grid-title {
-        font-size: 3.75vw;
+        font-size: 2.5vw;
+    }
+
+    .progress {
+        height: 5vw;
+    }
+
+    .progress-bar {
+        font-size: 3vw;
     }
 
     .grid-title {
-        font-size: 4.5vw;
+        font-size: 3.5vw;
     }
 
     .grid-description {
-        font-size: 7vw;
+        font-size: 5vw;
     }
 
     #no-results-msg {
@@ -697,7 +832,7 @@ footer a span {
         height: auto;
         width: auto;
         padding: 2vw 4vw;
-        font-size: 7vw;
+        font-size: 4vw;
     }
     
     /* .back-to-top {
@@ -730,14 +865,6 @@ footer a span {
         min-height: 175px;
     }
 
-    .container-md {
-        /* max-width: 500px; */
-    }
-
-    #wrapper {
-        /* width: 990px; */
-        /* padding: 0 50px; */
-    }
   }
 
 @media only screen and (width >= 768px) {
@@ -750,20 +877,6 @@ footer a span {
         font-size: 1.5rem;
     }
 
-    .container-md {
-        
-    }
-
-    .poke-item-col {
-        /* height: auto;
-        width: auto;
-        margin:auto; */
-    }
-
-    #wrapper {
-        /* width: 990px; */
-        /* padding: 0 50px; */
-    }
   }
 
 @media only screen and (width >= 992px) {
