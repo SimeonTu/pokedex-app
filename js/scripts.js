@@ -3,6 +3,9 @@ const colorThief = new ColorThief();
 //array containing a list of Pokemon
 let pokemonList = [];
 
+// Image to use in case of missing image
+let missingNo = "img/missingNo.png";
+
 //Value used to determine which Pokemon to load
 let offset;
 // Variable to track selected Pokemon generation
@@ -516,7 +519,7 @@ async function loadList(num, max) {
     pokemonList = poke.map((item) => ({
       name: item.name.charAt(0).toUpperCase() + item.name.slice(1),
       id: item.id,
-      imageUrl: item.sprites.other["official-artwork"].front_default,
+      imageUrl: item.sprites.other == null ? missingNo : item.sprites.other["official-artwork"].front_default,
       types: item.types.map((types) => types.type.name),
     }));
 
@@ -548,6 +551,7 @@ async function loadListFromSearch(num, max) {
 
   for (num; num < offset; num++) {
     let url = `https://pokeapi.co/api/v2/pokemon/${results[num].toLowerCase()}`;
+    console.log(url);
     pokemonList.push(fetch(url).then((res) => res.json()));
   }
 
@@ -557,9 +561,10 @@ async function loadListFromSearch(num, max) {
       pokemonList = poke.map((item) => ({
         name: item.name.charAt(0).toUpperCase() + item.name.slice(1),
         id: item.id,
-        imageUrl: item.sprites.other["official-artwork"].front_default,
+        imageUrl: item.sprites.other["official-artwork"].front_default == null ? missingNo : item.sprites.other["official-artwork"].front_default,
         types: item.types.map((types) => types.type.name),
       }));
+      console.log(pokemonList[x].imageUrl);
     }
 
     console.log(pokemonList);
@@ -703,6 +708,7 @@ async function loadDetails(poke) {
   modalTitle.empty();
   modalBody.empty();
 
+  modalBody.css("background-color", "white");
   modalBody.append(loadingWrapper);
   loadingWrapper.addClass("display");
   // await delay(1000);
@@ -713,7 +719,6 @@ async function loadDetails(poke) {
       return response.json();
     })
     .then(function (details) {
-      loadingWrapper.removeClass("display");
       // Now we add the details to the item
       poke.id = details.id;
       poke.imageUrl = details.sprites.other["official-artwork"].front_default;
@@ -840,6 +845,9 @@ async function showModal(poke) {
     infoRow.append(infoItem(poke, "Weight", `${poke.weight}kg`));
     infoRow.append(statsItem(poke));
 
+    imageWrapper.hide();
+    infoWrapper.hide();
+
     modalBody.append(imageWrapper);
     modalBody.append(infoWrapper);
 
@@ -849,6 +857,9 @@ async function showModal(poke) {
     // linear-gradient(356deg, rgb(${colorThief.getColor(img).toString()}) 0%, white 100%)
 
     if (img.complete) {
+      loadingWrapper.removeClass("display");
+      imageWrapper.fadeIn();
+      infoWrapper.fadeIn();
       $(`.modal-body-${poke.id}`).css("background", `linear-gradient(356deg, rgb(255,255,255) 30%, rgb(${colorThief.getColor(img).toString()}) 100%)`);
       // imageWrapper.css("box-shadow",`inset 0 10px 20px rgb(${colorThief.getColor(img).toString()})`)
       // $(".grid-description").css("text-shadow", `2px 2px rgb(${colorThief.getColor(img).toString()})`);
@@ -856,7 +867,10 @@ async function showModal(poke) {
       console.log("modal img complete: " + poke.name);
       console.log(colorThief.getColor(img).toString());
     } else {
+      loadingWrapper.removeClass("display");
       img.addEventListener("load", function () {
+        imageWrapper.fadeIn();
+        infoWrapper.fadeIn();
         $(`.modal-body-${poke.id}`).css("background", `linear-gradient(356deg, rgb(255,255,255) 50%, rgb(${colorThief.getColor(img).toString()}) 100%)`);
         // imageWrapper.css("box-shadow",`inset 0 -2px 20px rgb(${colorThief.getColor(img).toString()})`)
         // $(".grid-description").css("text-shadow", `2px 2px rgb(${colorThief.getColor(img).toString()})`);
