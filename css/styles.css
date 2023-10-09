@@ -1000,11 +1000,11 @@ footer a span {
     }
 
     .grid-title {
-        font-size: 1rem;
+        font-size: 0.9rem;
     }
 
     .grid-title.stats {
-        font-size: 1rem;
+        font-size: 0.9rem;
         margin-bottom: 1vh;
     }
 
@@ -1018,7 +1018,7 @@ footer a span {
     }
 
     .stats-wrapper .grid-title {
-        font-size: 0.75rem;
+        font-size: 0.7rem;
         /* margin-bottom: 0.15rem; */
     }
 

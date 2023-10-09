@@ -365,23 +365,32 @@ $("form").on("submit", (e) => {
 });
 
 // On small screens there is no "Search" button but there's a placeholder text indicating what the input field is for instead
-let mediaQuery = window.matchMedia("(max-width: 576px), (max-height: 850px)");
-function handleTabletChange(e) {
+let mediaQueryWidth = window.matchMedia("(max-width: 575px)");
+let mediaQueryHeight = window.matchMedia("(max-width: 575px), (max-height: 850px)");
+
+function handleTabletChangeWidth(e) {
   // Check if the media query is true
   if (e.matches) {
-    if (window.innerWidth <= 576) {
-      $("input[type='text']").attr("placeholder", "Search");
-    }
-    $(".modal-dialog").addClass("modal-dialog-centered");
+    $("input[type='text']").attr("placeholder", "Search");
   } else {
     $("input[type='text']").attr("placeholder", "");
+  }
+}
+function handleTabletChangeHeight(e) {
+  // Check if the media query is true
+  if (e.matches) {
+    $(".modal-dialog").addClass("modal-dialog-centered");
+  } else {
     $(".modal-dialog").removeClass("modal-dialog-centered");
   }
 }
+
 // Register event listener
-mediaQuery.addEventListener("change", handleTabletChange);
+mediaQueryWidth.addEventListener("change", handleTabletChangeWidth);
+mediaQueryHeight.addEventListener("change", handleTabletChangeHeight);
 // Initial check
-handleTabletChange(mediaQuery);
+handleTabletChangeWidth(mediaQueryWidth);
+handleTabletChangeHeight(mediaQueryHeight);
 
 //Search button functionality
 function filterPokemon(e) {
