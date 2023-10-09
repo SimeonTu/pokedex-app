@@ -218,16 +218,10 @@ body {
 }
 
   
-.modal-header .btn-close {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    cursor: pointer;
-    appearance: none;
-    -webkit-appearance: none;
-    border: 0;
-    margin: 0;
-    text-decoration: underline;
+.btn-close {
+    position:absolute;
+    right:20px;
+    top:15px;
 }
 
 .modal-header {
@@ -635,25 +629,31 @@ footer a span {
     padding-left: 0.25rem;
 }
 
-@media (hover: hover) {
-    .back-to-top:not([disabled]):not(.disabled).active,
-    .back-to-top:not([disabled]):not(.disabled):active,
-    .back-to-top:not([disabled]):not(.disabled).hover,
-    .back-to-top:not([disabled]):not(.disabled):hover{
-        color: #fff !important;
-        background-color: rgb(251, 255, 170, 0.85) !important;
-        border: 4px solid rgba(183, 170, 255, 0.9) !important;
-        filter: brightness(1.15);
-    }
+#back-to-top.btn:not([disabled]):not(.disabled).active,
+#back-to-top.btn:not([disabled]):not(.disabled):active,
+#back-to-top.btn:not([disabled]):not(.disabled).hover,
+#back-to-top.btn:not([disabled]):not(.disabled):hover,
+#back-to-top.btn:not([disabled]):not(.disabled).focus,
+#back-to-top.btn:not([disabled]):not(.disabled):focus{
+    color: #fff !important;
+    background-color: rgb(251, 255, 170, 0.85) !important;
+    border: 4px solid rgba(183, 170, 255, 0.9) !important;
+}
 
-    #gen-dropdown-btn:not([disabled]):not(.disabled).active,
-    #gen-dropdown-btn:not([disabled]):not(.disabled):active,
-    #gen-dropdown-btn:not([disabled]):not(.disabled).hover,
-    #gen-dropdown-btn:not([disabled]):not(.disabled):hover,
-    #gen-dropdown-btn:not([disabled]):not(.disabled):focus,
-    #gen-dropdown-btn:not([disabled]):not(.disabled).focus{
-        background-color: rgba(183, 170, 255, 0.9) !important;
-        color: rgb(251, 255, 170) !important;
+#gen-dropdown-btn:not([disabled]):not(.disabled).active,
+#gen-dropdown-btn:not([disabled]):not(.disabled):active,
+#gen-dropdown-btn:not([disabled]):not(.disabled).hover,
+#gen-dropdown-btn:not([disabled]):not(.disabled):hover,
+#gen-dropdown-btn:not([disabled]):not(.disabled):focus,
+#gen-dropdown-btn:not([disabled]):not(.disabled).focus{
+    background-color: rgba(183, 170, 255, 0.9) !important;
+    color: rgb(251, 255, 170) !important;
+}
+
+@media (hover: hover) {
+
+    .back-to-top:hover {
+        filter: brightness(1.15);
     }
 
     #gen-dropdown-btn:hover {
@@ -680,6 +680,16 @@ footer a span {
         transform: rotate(45deg) scale(1.1);
     }
   }
+
+@media only screen and (850px > height) and (width > 475px) {
+    .modal-dialog-scrollable {
+        /* align-items: center;
+        justify-content: center; */
+        margin: 0 auto;
+        height: 100vh;
+    }    
+  }
+
 
 @media only screen and (576px > width) {
 
