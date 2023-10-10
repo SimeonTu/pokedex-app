@@ -1,38 +1,22 @@
-const colorThief = new ColorThief();
 
-//array containing a list of Pokemon
-let pokemonList = [];
 
-// Image to use in case of missing image
-let missingNo = "img/missingNo.png";
+const colorThief = new ColorThief(); // Library used for getting the dominant color from an image - used for pokemon background elements 
+let pokemonList = []; //Array containing a list of Pokemon with the required data
+let missingNo = "img/missingNo.png"; // Placeholder image to use in case of missing pokemon image in the API
+let offset; // Value used to determine which Pokemon to load - ex. 16 = load until 16th pokemon
+let gen; // Variable to track selected Pokemon generation
+let end; // Variable used to mark end of list and stop trying to load more pokemon
+let results; // Used to store matched pokemon names in an array in the filter/search function
+let searchFlag = 0; // Flag used for checks needed for filter/search function
+let finalOffset; // Filter/search function version of "offset"
+let flag = 0; // Flag used for "infinite loading" observer - tells it whether to observe or not
 
-//Value used to determine which Pokemon to load
-let offset;
-// Variable to track selected Pokemon generation
-let gen;
-// Variable to determine whether to load more Pokemon or not
-let end;
-
-let results;
-
-let searchFlag = 0;
-let finalOffset;
-let flag = 0;
-
-let loadBtn = $("#btn-load-pokemon");
-
-//defining "loading" elements
-// let heading = document.querySelector('h1')
+let loadBtn = $("#btn-load-pokemon"); // Loading button element
 let loadingWrapper = $(`<div class="loading-wrapper">
                             <img class="loading-gif" src="./img/pikachu-running.gif">
-                          </div>`);
-// let loadingWrapperList = $(`<div class="loading-wrapper" id="loading-2">
-//                           <img class="loading-gif" src="./img/pikachu-running.gif">
-//                         </div>`);
+                          </div>`); // Loading wrapper element
 
-pokeCursors();
-
-//Function to convert RGB values to HSL. Used later to brighten pokemon thumbnail background color.
+//Function to convert RGB values to HSL. Used later to brighten pokemon thumbnail background color and darken font color in modal.
 const RGBToHSL = (r, g, b, lightAdjust) => {
   r /= 255;
   g /= 255;
@@ -49,18 +33,14 @@ const RGBToHSL = (r, g, b, lightAdjust) => {
   return [60 * h < 0 ? 60 * h + 360 : 60 * h, sat, light].toString();
 };
 
+// Observer used for seamless infinite loading of pokemon
+// Detects an html element located at the bottom of the page and then loads more data automatically
 const intersectionObserver = new IntersectionObserver(async function (entries) {
   // If intersectionRatio is 0, the target is out of view
   // and we do not need to do anything.
   console.log(entries);
 
-  if (entries[0].isIntersecting && flag == 1) {
-    // if (searchFlag == 1) {
-    //   loadDataFromSearch(offset, offset + 16);
-    // } else {
-    loadData(offset + 1, offset + 16);
-    // }
-  } else if (entries[0].isIntersecting && flag == 0) {
+  if (entries[0].isIntersecting && flag == 0) {
     console.log("flag within observer: " + flag);
     $("observer").remove();
     console.log("SEEN!!");
@@ -87,16 +67,12 @@ const intersectionObserver = new IntersectionObserver(async function (entries) {
   }
 });
 
-//// artificial delay function
+// Artificial delay function (used when testing the loading wrapper)
 const delay = (delayInms) => {
   return new Promise((resolve) => setTimeout(resolve, delayInms));
 };
 
-function getAll() {
-  return pokemonList;
-}
-
-//function to add each pokemon as a list item to the pokemon list
+// Function to add each pokemon as a list item to the pokemon list
 function addListItem(poke) {
   flag = 3;
 
@@ -140,6 +116,7 @@ function addListItem(poke) {
   $(".poke-row").append(pokeItem);
 }
 
+// Toggle display of dropdown menu
 function toggleButton() {
   let dropdown = $(".gen-dropdown-menu");
   let btn = $("#gen-dropdown-btn");
@@ -154,9 +131,9 @@ function toggleButton() {
     dropdown.slideUp();
   }
 }
-
 $("#gen-dropdown-btn").on("click", toggleButton);
 
+// Close dropdown menu when clicking anywhere else on the page
 $(window).on("click", (e) => {
   if ($(".gen-dropdown-menu").css("display") == "block") {
     if (!Array.from(e.target.classList).includes("dropdown-item") && e.target.id != "gen-dropdown-btn" && e.target.id != "hamburger") {
@@ -165,6 +142,7 @@ $(window).on("click", (e) => {
   }
 });
 
+// Add scroll button and notification on scroll down
 $(window).scroll(function () {
   if ($(this).scrollTop() > 450) {
     if ($(".modal").css("display") == "none") {
@@ -179,7 +157,8 @@ $(window).scroll(function () {
     $("#back-to-top").fadeOut();
   }
 });
-// scroll body to 0px on click
+
+// Button that scroll to the top of the page
 $("#back-to-top").click(function () {
   $("body,html").animate(
     {
@@ -191,6 +170,7 @@ $("#back-to-top").click(function () {
   return false;
 });
 
+//Check selected generation when loading pokemon in the "loadList" function
 function checkGen(gen, num, max) {
   offset = max;
   console.log("num within checkgen is: " + num);
@@ -228,6 +208,7 @@ function checkGen(gen, num, max) {
   }
 }
 
+// Generation filter buttons functionality
 $(`.gen-none`).on("click", () => {
   if (loadBtn.css("display") == "none") {
     loadBtn.show();
@@ -258,7 +239,6 @@ $(`.gen-none`).on("click", () => {
   $(".poke-row").empty();
   loadData(1, 16);
 });
-
 function genButtons(generation, num) {
   $(`.gen-${generation}`).on("click", () => {
     if (loadBtn.css("display") == "none") {
@@ -293,7 +273,6 @@ function genButtons(generation, num) {
     loadData(num + 1, num + 16);
   });
 }
-
 //Assign action listeners to each button in the dropdown
 for (let i = 1; i < 10; i++) {
   let num;
@@ -329,20 +308,7 @@ for (let i = 1; i < 10; i++) {
   genButtons(i, num);
 }
 
-// $(".dropdown").on("show.bs.dropdown", (e) => {
-//   $(".dropdown-menu").hide();
-//   $(".dropdown-menu").slideDown();
-// });
-
-// $(".poke-dropdown").on("click", (e) => {
-//   $(".dropdown-menu").css({"transform":"translate(-200px, 35px)"});
-//   console.log($(".dropdown-menu").css("transform"))
-//   $(".dropdown-menu").slideUp();
-// });
-
 //Load button functionality
-loadBtn.on("click", loadBtnFunc);
-
 function loadBtnFunc() {
   loadBtn.hide();
   flag = 0;
@@ -361,16 +327,11 @@ function loadBtnFunc() {
     intersectionObserver.observe($("observer")[0]);
   }, 1800);
 }
-
-$("form").on("submit", (e) => {
-  filterPokemon(e);
-  e.preventDefault();
-});
+loadBtn.on("click", loadBtnFunc);
 
 // On small screens there is no "Search" button but there's a placeholder text indicating what the input field is for instead
 let mediaQueryWidth = window.matchMedia("(max-width: 575px)");
 let mediaQueryHeight = window.matchMedia("(max-width: 575px), (max-height: 850px)");
-
 function handleTabletChangeWidth(e) {
   // Check if the media query is true
   if (e.matches) {
@@ -387,7 +348,6 @@ function handleTabletChangeHeight(e) {
     $(".modal-dialog").removeClass("modal-dialog-centered");
   }
 }
-
 // Register event listener
 mediaQueryWidth.addEventListener("change", handleTabletChangeWidth);
 mediaQueryHeight.addEventListener("change", handleTabletChangeHeight);
@@ -454,6 +414,13 @@ function filterPokemon(e) {
   }
 }
 
+// Run filter pokemon (search) function when input from is submitted
+$("form").on("submit", (e) => {
+  filterPokemon(e);
+  e.preventDefault();
+});
+
+// Text file with the list of all Pokemon, used when searching for Pokemon to check if it's in the list
 async function getNames() {
   return fetch("pokemonNames.txt")
     .then((res) => res.text())
@@ -463,8 +430,6 @@ async function getNames() {
     })
     .catch((e) => console.error(e));
 }
-
-// getNames().then((val) => console.log(val));
 
 //Main function for the fetching and displaying of data
 function loadData(num, max) {
@@ -542,7 +507,6 @@ async function loadListFromSearch(num, max) {
   console.log("offset within listsearch func: " + offset);
   if (offset > results.length || results.length < 16) {
     console.log("offset < results or results > 16\n setting flag to 1 and offset to results.length");
-    flag = 1;
     searchFlag = 0;
     end = 1;
     finalOffset = results.length % 16;
@@ -571,31 +535,15 @@ async function loadListFromSearch(num, max) {
   });
 }
 
-//Clear value from search field
-$("input[type='text']").val("");
-loadData(1, 16); /////////////////
-
 // Display pokemon items functionality
 function loadPokesAnim() {
   let counter = finalOffset ? finalOffset : pokemonList.length;
   let max = pokemonList.length < 16 ? pokemonList.length : finalOffset ? finalOffset : 16;
-
-  // if (finalOffset) {
-  //   counter = finalOffset;
-  //   max = finalOffset;
-  //   console.log("counter after finaloffset change: " + counter);
-  //   console.log("max after finaloffset change: " + max);
-  // }
-
-  console.log("counter is: " + counter);
-
   flag = 3;
 
-  // if (window.matchMedia("(max-width: 576px)").matches) {
-  //   $(".poke-item-col").show();
-  // } else {
-
+  console.log("counter is: " + counter);
   console.log("flag within anim func: " + flag);
+
   for (let i = 0; i < max; i++) {
     let img = document.querySelector(`#poke-img-${pokemonList[i].id}`);
     img.crossOrigin = "Anonymous";
@@ -627,17 +575,6 @@ function loadPokesAnim() {
 
         counter -= 1;
         console.log(counter);
-
-        // if (counter > 16) {
-        //   searchFlag = 1;
-        //   loadBtn.show();
-        //   for (let i = 0; i < 15; i++) {}
-        //   $(".poke-item-col")
-        //     .first()
-        //     .show(100, function showNext() {
-        //       $(this).next(".col").show(100, showNext);
-        //     });
-        // }
 
         if (counter == 0) {
           loadingWrapper.remove();
@@ -673,31 +610,6 @@ function loadPokesAnim() {
       });
     }
   }
-
-  // }
-  // flag = 3;
-  // for (x in pokemonList) {
-  //   console.log(pokemonList[x].id)
-  //   $(`#poke-img-${pokemonList[x].id}`).on("load", () =>{
-  //     console.log("ping")
-  //     $(`.poke-item-col-${pokemonList[x].id}`).show(100)
-  //   })
-  // }
-  // .first()
-  // .show(100, function showNext() {
-  //   console.log($(this)
-  //   .next().children(".poke-item")
-  //   .children(".poke-thumbnail")
-  //   .children(".poke-img"))
-  //   $(this)
-  //     .next().children(".poke-item")
-  //     .children(".poke-thumbnail")
-  //     .children(".poke-img")
-  //     .on("load", () => {
-  //       $(this).next().show(500);
-  //     });
-  // });
-  // }
 }
 
 async function loadDetails(poke) {
@@ -854,8 +766,6 @@ async function showModal(poke) {
     let img = document.querySelector(`#poke-img-modal-${poke.id}`);
     img.crossOrigin = "Anonymous";
 
-    // linear-gradient(356deg, rgb(${colorThief.getColor(img).toString()}) 0%, white 100%)
-
     if (img.complete) {
       loadingWrapper.removeClass("display");
       imageWrapper.fadeIn();
@@ -891,47 +801,6 @@ function pokeCursors() {
   }
 }
 
-// function hideModal() {
-//   modalContainer.classList.remove("is-visible");
-// }
-
-// window.addEventListener("keydown", (e) => {
-//   if (e.key === "Escape" && modalContainer.classList.contains("is-visible")) {
-//     hideModal();
-//   }
-// });
-
-// modalContainer.addEventListener("click", (e) => {
-//   // Since this is also triggered when clicking INSIDE the modal container,
-//   // We only want to close if the user clicks directly on the overlay
-//   let target = e.target;
-//   if (target === modalContainer) {
-//     hideModal();
-//   }
-// });
-
-//   return {
-//     getAll: getAll,
-//     addListItem: addListItem,
-//     // largestPokeNote: largestPokeNote,
-//     filterPokemon: filterPokemon,
-//     loadList: loadList,
-//     loadDetails: loadDetails,
-//     pokeCursors: pokeCursors,
-//   };
-// })();
-
-// pokemonRepository.loadList().then(function () {
-//   // Now the data is loaded!
-//   // console.log(pokemonRepository.getAll()[0])
-//   pokemonRepository.getAll().forEach(function (pokemon) {
-//     // console.log(pokemon)
-//     pokemonRepository.addListItem(pokemon);
-//   });
-// });
-
-// let pokemonList = pokemonRepository.getAll();
-
-// pokemonList.forEach(pokemonRepository.displayPokemon);
-
-// pokemonRepository.filterPokemon("Bulbasaur");
+pokeCursors(); // Update cursor to a random pokeball cursor
+$("input[type='text']").val(""); // Clear value from search field
+loadData(1, 16); // Run main function for loading Pokemon list
