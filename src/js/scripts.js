@@ -1,6 +1,4 @@
-
-
-const colorThief = new ColorThief(); // Library used for getting the dominant color from an image - used for pokemon background elements 
+const colorThief = new ColorThief(); // Library used for getting the dominant color from an image - used for pokemon background elements
 let pokemonList = []; //Array containing a list of Pokemon with the required data
 let missingNo = "img/missingNo.png"; // Placeholder image to use in case of missing pokemon image in the API
 let offset; // Value used to determine which Pokemon to load - ex. 16 = load until 16th pokemon
