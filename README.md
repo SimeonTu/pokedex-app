@@ -1,9 +1,9 @@
 # Pokédex App
 A web application that acts as an encyclopedia for Pokemon, and allows you to quickly look up information about any Pokemon.
 
-[GitHub Pages link](https://simeontu.github.io/pokedex-app/)
-
 ![Pokedex main page screenshot](https://github.com/SimeonTu/pokedex-app/assets/45809363/a5a775f7-696f-412e-8f1d-25b6eb2e5bd0)
+
+[GitHub Pages link](https://simeontu.github.io/pokedex-app/)
 
 ## Features and Usage
 - Find Pokemon by various methods - search for a specific Pokemon using the search bar, filter by generations 1-9, or just scroll down through a list of all currently released Pokemon.
