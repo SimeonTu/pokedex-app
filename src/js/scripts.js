@@ -224,7 +224,7 @@ $(`.gen-none`).on("click", () => {
   $("#gen-dropdown-btn").text($(`.gen-none`).html()).append($("<span id='hamburger'> ☰</span>"));
 
   //Change text of the "now showing" message to "All pokemon"
-  $("#now-showing-div").html(`Now showing: <span>All Pokémon</span>`);
+  $("#now-showing-div").html(`Now showing:&nbsp;<span>All Pokémon</span>`);
 
   //Clear value from search field
   $("input[type='text']").val("");
@@ -258,7 +258,7 @@ function genButtons(generation, num) {
       .append($("<span id='hamburger'> ☰</span>"));
 
     //Change text of the "now showing" message to currently selected generation
-    $("#now-showing-div").html(`Now showing: <span>${$(`.gen-${generation}`).html()}</span>`);
+    $("#now-showing-div").html(`Now showing:&nbsp;<span>${$(`.gen-${generation}`).html()}</span>`);
 
     //Clear value from search field
     $("input[type='text']").val("");
@@ -369,47 +369,47 @@ function filterPokemon(e) {
       loadBtn.show();
     }
     if (gen == 0 || gen == 1) {
-      $("#now-showing-div").html(`Now showing: <span>Generation I</span>`);
+      $("#now-showing-div").html(`Now showing:&nbsp;<span>Generation I</span>`);
       $(".poke-row").empty();
       searchFlag = 0;
       loadData(1, 16);
     } else if (gen == 2) {
-      $("#now-showing-div").html(`Now showing: <span>Generation II</span>`);
+      $("#now-showing-div").html(`Now showing:&nbsp;<span>Generation II</span>`);
       $(".poke-row").empty();
       searchFlag = 0;
       loadData(151+1, 151+16);
     } else if (gen == 3) {
-      $("#now-showing-div").html(`Now showing: <span>Generation III</span>`);
+      $("#now-showing-div").html(`Now showing:&nbsp;<span>Generation III</span>`);
       $(".poke-row").empty();
       searchFlag = 0;
       loadData(251+1, 251+16);
     } else if (gen == 4) {
-      $("#now-showing-div").html(`Now showing: <span>Generation IV</span>`);
+      $("#now-showing-div").html(`Now showing:&nbsp;<span>Generation IV</span>`);
       $(".poke-row").empty();
       searchFlag = 0;
       loadData(386+1, 386+16);
     } else if (gen == 5) {
-      $("#now-showing-div").html(`Now showing: <span>Generation V</span>`);
+      $("#now-showing-div").html(`Now showing:&nbsp;<span>Generation V</span>`);
       $(".poke-row").empty();
       searchFlag = 0;
       loadData(493+1, 493+16);
     } else if (gen == 6) {
-      $("#now-showing-div").html(`Now showing: <span>Generation VI</span>`);
+      $("#now-showing-div").html(`Now showing:&nbsp;<span>Generation VI</span>`);
       $(".poke-row").empty();
       searchFlag = 0;
       loadData(649+1, 649+16);
     } else if (gen == 7) {
-      $("#now-showing-div").html(`Now showing: <span>Generation VII</span>`);
+      $("#now-showing-div").html(`Now showing:&nbsp;<span>Generation VII</span>`);
       $(".poke-row").empty();
       searchFlag = 0;
       loadData(721+1, 721+16);
     } else if (gen == 8) {
-      $("#now-showing-div").html(`Now showing: <span>Generation VIII</span>`);
+      $("#now-showing-div").html(`Now showing:&nbsp;<span>Generation VIII</span>`);
       $(".poke-row").empty();
       searchFlag = 0;
       loadData(809+1, 809+16);
     } else if (gen == 9) {
-      $("#now-showing-div").html(`Now showing: <span>Generation IX</span>`);
+      $("#now-showing-div").html(`Now showing:&nbsp;<span>Generation IX</span>`);
       $(".poke-row").empty();
       searchFlag = 0;
       loadData(905+1, 905+16);
@@ -437,7 +437,7 @@ function filterPokemon(e) {
             return true;
           }
         });
-        $("#now-showing-div").html(`Now showing: <span>Generation I</span>&#160;and <span>"${val}"</span>`);
+        $("#now-showing-div").html(`Now showing:&nbsp;<span>Generation I</span>&#160;and&nbsp;<span>"${val}"</span>`);
       } else if (gen == 2) {
         results = names.filter((pokey) => {
           if (pokey.id > 151 && pokey.id < 252 && pokey.name.includes(val.toLowerCase())) {
@@ -445,59 +445,59 @@ function filterPokemon(e) {
           }
         });
         console.log(val);
-        $("#now-showing-div").html(`Now showing: <span>Generation II</span>&#160;and <span>"${val}"</span>`);
+        $("#now-showing-div").html(`Now showing:&nbsp;<span>Generation II</span>&#160;and&nbsp;<span>"${val}"</span>`);
       } else if (gen == 3) {
         results = names.filter((pokey) => {
           if (pokey.id > 251 && pokey.id < 387 && pokey.name.includes(val.toLowerCase())) {
             return true;
           }
         });
-        $("#now-showing-div").html(`Now showing: <span>Generation III</span>&#160;and <span>"${val}"</span>`);
+        $("#now-showing-div").html(`Now showing:&nbsp;<span>Generation III</span>&#160;and&nbsp;<span>"${val}"</span>`);
       } else if (gen == 4) {
         results = names.filter((pokey) => {
           if (pokey.id > 386 && pokey.id < 494 && pokey.name.includes(val.toLowerCase())) {
             return true;
           }
         });
-        $("#now-showing-div").html(`Now showing: <span>Generation IV</span>&#160;and <span>"${val}"</span>`);
+        $("#now-showing-div").html(`Now showing:&nbsp;<span>Generation IV</span>&#160;and&nbsp;<span>"${val}"</span>`);
       } else if (gen == 5) {
         results = names.filter((pokey) => {
           if (pokey.id > 493 && pokey.id < 650 && pokey.name.includes(val.toLowerCase())) {
             return true;
           }
         });
-        $("#now-showing-div").html(`Now showing: <span>Generation V</span>&#160;and <span>"${val}"</span>`);
+        $("#now-showing-div").html(`Now showing:&nbsp;<span>Generation V</span>&#160;and&nbsp;<span>"${val}"</span>`);
       } else if (gen == 6) {
         results = names.filter((pokey) => {
           if (pokey.id > 649 && pokey.id < 722 && pokey.name.includes(val.toLowerCase())) {
             return true;
           }
         });
-        $("#now-showing-div").html(`Now showing: <span>Generation VI</span>&#160;and <span>"${val}"</span>`);
+        $("#now-showing-div").html(`Now showing:&nbsp;<span>Generation VI</span>&#160;and&nbsp;<span>"${val}"</span>`);
       } else if (gen == 7) {
         results = names.filter((pokey) => {
           if (pokey.id > 721 && pokey.id < 810 && pokey.name.includes(val.toLowerCase())) {
             return true;
           }
         });
-        $("#now-showing-div").html(`Now showing: <span>Generation VII</span>&#160;and <span>"${val}"</span>`);
+        $("#now-showing-div").html(`Now showing:&nbsp;<span>Generation VII</span>&#160;and&nbsp;<span>"${val}"</span>`);
       } else if (gen == 8) {
         results = names.filter((pokey) => {
           if (pokey.id > 809 && pokey.id < 906 && pokey.name.includes(val.toLowerCase())) {
             return true;
           }
         });
-        $("#now-showing-div").html(`Now showing: <span>Generation VIII</span>&#160;and <span>"${val}"</span>`);
+        $("#now-showing-div").html(`Now showing:&nbsp;<span>Generation VIII</span>&#160;and&nbsp;<span>"${val}"</span>`);
       } else if (gen == 9) {
         results = names.filter((pokey) => {
           if (pokey.id > 905 && pokey.id < 1018 && pokey.name.includes(val.toLowerCase())) {
             return true;
           }
         });
-        $("#now-showing-div").html(`Now showing: <span>Generation IX</span>&#160;and <span>"${val}"</span>`);
+        $("#now-showing-div").html(`Now showing:&nbsp;<span>Generation IX</span>&#160;and&nbsp;<span>"${val}"</span>`);
       } else {
         results = names.filter((pokey) => pokey.name.includes(val.toLowerCase()));
-        $("#now-showing-div").html(`Now showing: <span>All Pokémon</span>&#160;and <span>"${val}"</span>`);
+        $("#now-showing-div").html(`Now showing:&nbsp;<span>All Pokémon</span>&#160;and&nbsp;<span>"${val}"</span>`);
       }
 
       if (results.length > 0) {
