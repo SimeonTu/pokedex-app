@@ -65,7 +65,7 @@ body {
 }
 
 #now-showing-div span {
-    margin-left: 1rem;
+    /* margin-left: 1rem; */
     font-weight: bold;
     color: rgb(251, 255, 170);
     text-shadow: 2px 2px rgba(0, 0, 0, 1);
@@ -799,7 +799,17 @@ footer a span {
 
     #now-showing-div {
         font-size: 3vw;
-        white-space: nowrap;
+        /* display: inline-block; */
+        /* flex-direction: column; */
+        flex-wrap: wrap;
+        width: auto;
+        height: auto;
+    }
+
+    #now-showing-div span {
+        /* margin-left: 16px; */
+        /* margin-top: 0.1rem;
+        margin-left: 0; */
     }
     
     #main-heading {
