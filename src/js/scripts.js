@@ -224,7 +224,7 @@ $(`.gen-none`).on("click", () => {
   $("#gen-dropdown-btn").text($(`.gen-none`).html()).append($("<span id='hamburger'> ☰</span>"));
 
   //Change text of the "now showing" message to "All pokemon"
-  $("#now-showing-div span").text(`All Pokémon`);
+  $("#now-showing-div").html(`Now showing: <span>All Pokémon</span>`);
 
   //Clear value from search field
   $("input[type='text']").val("");
@@ -233,6 +233,7 @@ $(`.gen-none`).on("click", () => {
   toggleButton();
 
   searchFlag = 0;
+  gen = 0;
   flag = 3;
   $(".poke-row").empty();
   loadData(1, 16);
@@ -257,7 +258,7 @@ function genButtons(generation, num) {
       .append($("<span id='hamburger'> ☰</span>"));
 
     //Change text of the "now showing" message to currently selected generation
-    $("#now-showing-div span").text($(`.gen-${generation}`).html());
+    $("#now-showing-div").html(`Now showing: <span>${$(`.gen-${generation}`).html()}</span>`);
 
     //Clear value from search field
     $("input[type='text']").val("");
@@ -355,7 +356,7 @@ handleTabletChangeHeight(mediaQueryHeight);
 
 //Search button functionality
 function filterPokemon(e) {
-  $("#gen-dropdown-btn").html("Generation <span id='hamburger'>☰</span>");
+  // $("#gen-dropdown-btn").html("Generation <span id='hamburger'>☰</span>");
   end = 0;
   flag = 3;
   finalOffset = null;
@@ -363,12 +364,56 @@ function filterPokemon(e) {
   console.log(val);
 
   if (!val) {
+    console.log("no val reached!!!!");
     if (loadBtn.css("display") == "none") {
       loadBtn.show();
     }
-    $(".poke-row").empty();
-    searchFlag = 0;
-    loadData(1, 16);
+    if (gen == 0 || gen == 1) {
+      $("#now-showing-div").html(`Now showing: <span>Generation I</span>`);
+      $(".poke-row").empty();
+      searchFlag = 0;
+      loadData(1, 16);
+    } else if (gen == 2) {
+      $("#now-showing-div").html(`Now showing: <span>Generation II</span>`);
+      $(".poke-row").empty();
+      searchFlag = 0;
+      loadData(151+1, 151+16);
+    } else if (gen == 3) {
+      $("#now-showing-div").html(`Now showing: <span>Generation III</span>`);
+      $(".poke-row").empty();
+      searchFlag = 0;
+      loadData(251+1, 251+16);
+    } else if (gen == 4) {
+      $("#now-showing-div").html(`Now showing: <span>Generation IV</span>`);
+      $(".poke-row").empty();
+      searchFlag = 0;
+      loadData(386+1, 386+16);
+    } else if (gen == 5) {
+      $("#now-showing-div").html(`Now showing: <span>Generation V</span>`);
+      $(".poke-row").empty();
+      searchFlag = 0;
+      loadData(493+1, 493+16);
+    } else if (gen == 6) {
+      $("#now-showing-div").html(`Now showing: <span>Generation VI</span>`);
+      $(".poke-row").empty();
+      searchFlag = 0;
+      loadData(649+1, 649+16);
+    } else if (gen == 7) {
+      $("#now-showing-div").html(`Now showing: <span>Generation VII</span>`);
+      $(".poke-row").empty();
+      searchFlag = 0;
+      loadData(721+1, 721+16);
+    } else if (gen == 8) {
+      $("#now-showing-div").html(`Now showing: <span>Generation VIII</span>`);
+      $(".poke-row").empty();
+      searchFlag = 0;
+      loadData(809+1, 809+16);
+    } else if (gen == 9) {
+      $("#now-showing-div").html(`Now showing: <span>Generation IX</span>`);
+      $(".poke-row").empty();
+      searchFlag = 0;
+      loadData(905+1, 905+16);
+    }
   } else {
     //In case searched pokemon is already in pokemonList
     // for (x in pokemonList) {
@@ -386,12 +431,79 @@ function filterPokemon(e) {
     $(".poke-row").append(loadingWrapper);
     loadBtn.hide();
     getNames().then((names) => {
-      results = names.filter((pokeName) => pokeName.includes(val.toLowerCase()));
+      if (gen == 1) {
+        results = names.filter((pokey) => {
+          if (pokey.id < 152 && pokey.name.includes(val.toLowerCase())) {
+            return true;
+          }
+        });
+        $("#now-showing-div").html(`Now showing: <span>Generation I</span>&#160;and <span>"${val}"</span>`);
+      } else if (gen == 2) {
+        results = names.filter((pokey) => {
+          if (pokey.id > 151 && pokey.id < 252 && pokey.name.includes(val.toLowerCase())) {
+            return true;
+          }
+        });
+        console.log(val);
+        $("#now-showing-div").html(`Now showing: <span>Generation II</span>&#160;and <span>"${val}"</span>`);
+      } else if (gen == 3) {
+        results = names.filter((pokey) => {
+          if (pokey.id > 251 && pokey.id < 387 && pokey.name.includes(val.toLowerCase())) {
+            return true;
+          }
+        });
+        $("#now-showing-div").html(`Now showing: <span>Generation III</span>&#160;and <span>"${val}"</span>`);
+      } else if (gen == 4) {
+        results = names.filter((pokey) => {
+          if (pokey.id > 386 && pokey.id < 494 && pokey.name.includes(val.toLowerCase())) {
+            return true;
+          }
+        });
+        $("#now-showing-div").html(`Now showing: <span>Generation IV</span>&#160;and <span>"${val}"</span>`);
+      } else if (gen == 5) {
+        results = names.filter((pokey) => {
+          if (pokey.id > 493 && pokey.id < 650 && pokey.name.includes(val.toLowerCase())) {
+            return true;
+          }
+        });
+        $("#now-showing-div").html(`Now showing: <span>Generation V</span>&#160;and <span>"${val}"</span>`);
+      } else if (gen == 6) {
+        results = names.filter((pokey) => {
+          if (pokey.id > 649 && pokey.id < 722 && pokey.name.includes(val.toLowerCase())) {
+            return true;
+          }
+        });
+        $("#now-showing-div").html(`Now showing: <span>Generation VI</span>&#160;and <span>"${val}"</span>`);
+      } else if (gen == 7) {
+        results = names.filter((pokey) => {
+          if (pokey.id > 721 && pokey.id < 810 && pokey.name.includes(val.toLowerCase())) {
+            return true;
+          }
+        });
+        $("#now-showing-div").html(`Now showing: <span>Generation VII</span>&#160;and <span>"${val}"</span>`);
+      } else if (gen == 8) {
+        results = names.filter((pokey) => {
+          if (pokey.id > 809 && pokey.id < 906 && pokey.name.includes(val.toLowerCase())) {
+            return true;
+          }
+        });
+        $("#now-showing-div").html(`Now showing: <span>Generation VIII</span>&#160;and <span>"${val}"</span>`);
+      } else if (gen == 9) {
+        results = names.filter((pokey) => {
+          if (pokey.id > 905 && pokey.id < 1018 && pokey.name.includes(val.toLowerCase())) {
+            return true;
+          }
+        });
+        $("#now-showing-div").html(`Now showing: <span>Generation IX</span>&#160;and <span>"${val}"</span>`);
+      } else {
+        results = names.filter((pokey) => pokey.name.includes(val.toLowerCase()));
+        $("#now-showing-div").html(`Now showing: <span>All Pokémon</span>&#160;and <span>"${val}"</span>`);
+      }
 
       if (results.length > 0) {
         console.log("yeppers");
         console.log(results);
-        $("#now-showing-div span").text(`"${val}"`);
+        // $("#now-showing-div span").text(`"${val}"`);
 
         if (results.length > 16) {
           loadBtn.show();
@@ -420,7 +532,7 @@ $("form").on("submit", (e) => {
 
 // Text file with the list of all Pokemon, used when searching for Pokemon to check if it's in the list
 async function getNames() {
-  return fetch("pokemonNames.txt")
+  return fetch("pokemonNamesAndID.json")
     .then((res) => res.text())
     .then((text) => {
       // console.log(JSON.parse(text));
@@ -512,13 +624,12 @@ async function loadListFromSearch(num, max) {
   }
 
   for (num; num < offset; num++) {
-    let url = `https://pokeapi.co/api/v2/pokemon/${results[num].toLowerCase()}`;
+    let url = `https://pokeapi.co/api/v2/pokemon/${results[num].name.toLowerCase()}`;
     console.log(url);
     pokemonList.push(fetch(url).then((res) => res.json()));
   }
 
   return Promise.all(pokemonList).then((poke) => {
-    gen = 0;
     for (x in poke) {
       pokemonList = poke.map((item) => ({
         name: item.name.charAt(0).toUpperCase() + item.name.slice(1),
@@ -526,7 +637,6 @@ async function loadListFromSearch(num, max) {
         imageUrl: item.sprites.other["official-artwork"].front_default == null ? missingNo : item.sprites.other["official-artwork"].front_default,
         types: item.types.map((types) => types.type.name),
       }));
-      console.log(pokemonList[x].imageUrl);
     }
 
     console.log(pokemonList);
