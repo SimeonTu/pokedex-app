@@ -1,16 +1,19 @@
 {
     "env": {
         "es6": true,
-        "browser": true
+        "browser": true,
+        "jquery": true
     },
     "extends": [
-        "eslint:recommended",
-        "jquery"
+        "eslint:recommended"
     ],
     "rules": {
         "quotes": ["error", "single"]
     },
     "parserOptions": {
          "ecmaVersion": 8 
+    },
+    "globals": {
+        "ColorThief": "writable"
     }
 }
