@@ -107,6 +107,14 @@ body {
     align-items: center;
 }
 
+#search-button {
+    /* border: 3px solid rgb(195, 198, 133); */
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    background-color: rgb(251, 255, 170) !important;
+    color: rgba(154, 144, 215, 1) !important;
+    transition: filter 0.2s;
+}
+
 .gen-dropdown {
     display: flex;
     position: relative;
@@ -116,12 +124,13 @@ body {
 }
 
 #gen-dropdown-btn {
-    background-color: rgba(183, 170, 255, 0.9);
-    border: 3px solid rgba(154, 144, 215, 0.9);
+    background-color: rgb(251, 255, 170);
+    /* border: 3px solid rgb(195, 198, 133); */
+    border: 2px solid rgba(0, 0, 0, 0.1);
     box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
-    text-shadow: 1px 1px 2.5px rgba(0, 0, 0, 1);
-    color: rgb(251, 255, 170);
-    transition: filter 0.5s;
+    /* text-shadow: 1px 1px 2.5px rgba(0, 0, 0, 1); */
+    color: rgba(154, 144, 215, 1);
+    transition: filter 0.2s;
 }
 
 #gen-dropdown-btn span {
@@ -647,8 +656,18 @@ footer a span {
 #gen-dropdown-btn:not([disabled]):not(.disabled):hover,
 #gen-dropdown-btn:not([disabled]):not(.disabled):focus,
 #gen-dropdown-btn:not([disabled]):not(.disabled).focus{
-    background-color: rgba(183, 170, 255, 0.9) !important;
-    color: rgb(251, 255, 170) !important;
+    background-color: rgb(251, 255, 170) !important;
+    color: rgba(154, 144, 215, 1) !important;
+}
+
+#search-button:not([disabled]):not(.disabled).active,
+#search-buttonn:not([disabled]):not(.disabled):active,
+#search-button:not([disabled]):not(.disabled).hover,
+#search-button:not([disabled]):not(.disabled):hover,
+#search-button:not([disabled]):not(.disabled):focus,
+#search-button:not([disabled]):not(.disabled).focus{
+    background-color: rgb(251, 255, 170) !important;
+    color: rgba(154, 144, 215, 1) !important;
 }
 
 @media (hover: hover) {
@@ -658,7 +677,11 @@ footer a span {
     }
 
     #gen-dropdown-btn:hover {
-        filter: brightness(1.15);
+        filter: contrast(0.9) !important;
+    }
+
+    #search-button:hover {
+        filter: contrast(0.9) !important;
     }
 
     #btn-load-pokemon:hover {
