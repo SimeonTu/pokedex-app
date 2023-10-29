@@ -221,10 +221,10 @@ $('.gen-none').on('click', () => {
   }
 
   //Set dropdown button text to current generation and add hamburger icon
-  $('#gen-dropdown-btn').text($(`.gen-none`).html()).append($("<span id='hamburger'> ☰</span>"));
+  $('#gen-dropdown-btn').text($('.gen-none').html()).append($('<span id="hamburger"> ☰</span>'));
 
   //Change text of the "now showing" message to "All pokemon"
-  $('#now-showing-div').html(`Now showing:&nbsp;<span>All Pokémon</span>`);
+  $('#now-showing-div').html('Now showing:&nbsp;<span>All Pokémon</span>');
 
   //Clear value from search field
   $('input[type="text"]').val('');
@@ -236,7 +236,7 @@ $('.gen-none').on('click', () => {
   gen = 0;
   flag = 3;
   $('.poke-row').empty();
-  loadData(1, 16);
+  loadData(1, 32);
 });
 function genButtons(generation, num) {
   $(`.gen-${generation}`).on('click', () => {
@@ -255,13 +255,13 @@ function genButtons(generation, num) {
     //Set dropdown button text to current generation and add hamburger icon
     $('#gen-dropdown-btn')
       .text($(`.gen-${generation}`).html())
-      .append($("<span id='hamburger'> ☰</span>"));
+      .append($('<span id="hamburger"> ☰</span>'));
 
     //Change text of the "now showing" message to currently selected generation
     $('#now-showing-div').html(`Now showing:&nbsp;<span>${$(`.gen-${generation}`).html()}</span>`);
 
     //Clear value from search field
-    $("input[type='text']").val('');
+    $('input[type="text"]').val('');
 
     toggleButton();
 
@@ -269,7 +269,7 @@ function genButtons(generation, num) {
     gen = generation;
     flag = 3;
     $('.poke-row').empty();
-    loadData(num + 1, num + 16);
+    loadData(num + 1, num + 32);
   });
 }
 //Assign action listeners to each button in the dropdown
@@ -334,9 +334,9 @@ let mediaQueryHeight = window.matchMedia('(max-width: 575px), (max-height: 850px
 function handleTabletChangeWidth(e) {
   // Check if the media query is true
   if (e.matches) {
-    $("input[type='text']").attr('placeholder', 'Search');
+    $('input[type="text"]').attr('placeholder', 'Search');
   } else {
-    $("input[type='text']").attr('placeholder', '');
+    $('input[type="text"]').attr('placeholder', '');
   }
 }
 function handleTabletChangeHeight(e) {
@@ -355,12 +355,13 @@ handleTabletChangeWidth(mediaQueryWidth);
 handleTabletChangeHeight(mediaQueryHeight);
 
 //Search button functionality
-function filterPokemon(e) {
+function filterPokemon() {
   // $("#gen-dropdown-btn").html("Generation <span id='hamburger'>☰</span>");
   end = 0;
   flag = 3;
   finalOffset = null;
-  let val = $("input[type='text']").val();
+
+  let val = $('input[type="text"]').val();
   console.log(val);
 
   if (!val) {
@@ -369,50 +370,50 @@ function filterPokemon(e) {
       loadBtn.show();
     }
     if (gen == 0 || gen == 1) {
-      $('#now-showing-div').html(`Now showing:&nbsp;<span>Generation I</span>`);
+      $('#now-showing-div').html('Now showing:&nbsp;<span>Generation I</span>');
       $('.poke-row').empty();
       searchFlag = 0;
-      loadData(1, 16);
+      loadData(1, 32);
     } else if (gen == 2) {
-      $('#now-showing-div').html(`Now showing:&nbsp;<span>Generation II</span>`);
+      $('#now-showing-div').html('Now showing:&nbsp;<span>Generation II</span>');
       $('.poke-row').empty();
       searchFlag = 0;
-      loadData(151 + 1, 151 + 16);
+      loadData(151 + 1, 151 + 32);
     } else if (gen == 3) {
-      $('#now-showing-div').html(`Now showing:&nbsp;<span>Generation III</span>`);
+      $('#now-showing-div').html('Now showing:&nbsp;<span>Generation III</span>');
       $('.poke-row').empty();
       searchFlag = 0;
-      loadData(251 + 1, 251 + 16);
+      loadData(251 + 1, 251 + 32);
     } else if (gen == 4) {
-      $('#now-showing-div').html(`Now showing:&nbsp;<span>Generation IV</span>`);
+      $('#now-showing-div').html('Now showing:&nbsp;<span>Generation IV</span>');
       $('.poke-row').empty();
       searchFlag = 0;
-      loadData(386 + 1, 386 + 16);
+      loadData(386 + 1, 386 + 32);
     } else if (gen == 5) {
-      $('#now-showing-div').html(`Now showing:&nbsp;<span>Generation V</span>`);
+      $('#now-showing-div').html('Now showing:&nbsp;<span>Generation V</span>');
       $('.poke-row').empty();
       searchFlag = 0;
-      loadData(493 + 1, 493 + 16);
+      loadData(493 + 1, 493 + 32);
     } else if (gen == 6) {
-      $('#now-showing-div').html(`Now showing:&nbsp;<span>Generation VI</span>`);
+      $('#now-showing-div').html('Now showing:&nbsp;<span>Generation VI</span>');
       $('.poke-row').empty();
       searchFlag = 0;
-      loadData(649 + 1, 649 + 16);
+      loadData(649 + 1, 649 + 32);
     } else if (gen == 7) {
-      $('#now-showing-div').html(`Now showing:&nbsp;<span>Generation VII</span>`);
+      $('#now-showing-div').html('Now showing:&nbsp;<span>Generation VII</span>');
       $('.poke-row').empty();
       searchFlag = 0;
-      loadData(721 + 1, 721 + 16);
+      loadData(721 + 1, 721 + 32);
     } else if (gen == 8) {
-      $('#now-showing-div').html(`Now showing:&nbsp;<span>Generation VIII</span>`);
+      $('#now-showing-div').html('Now showing:&nbsp;<span>Generation VIII</span>');
       $('.poke-row').empty();
       searchFlag = 0;
-      loadData(809 + 1, 809 + 16);
+      loadData(809 + 1, 809 + 32);
     } else if (gen == 9) {
-      $('#now-showing-div').html(`Now showing:&nbsp;<span>Generation IX</span>`);
+      $('#now-showing-div').html('Now showing:&nbsp;<span>Generation IX</span>');
       $('.poke-row').empty();
       searchFlag = 0;
-      loadData(905 + 1, 905 + 16);
+      loadData(905 + 1, 905 + 32);
     }
   } else {
     //In case searched pokemon is already in pokemonList
@@ -505,10 +506,10 @@ function filterPokemon(e) {
         console.log(results);
         // $("#now-showing-div span").text(`"${val}"`);
 
-        if (results.length > 16) {
+        if (results.length > 32) {
           loadBtn.show();
           flag = 3;
-          loadDataFromSearch(0, 16);
+          loadDataFromSearch(0, 32);
         } else {
           console.log('else reached within search');
           // could be replaced with regular loaddata?
@@ -517,7 +518,7 @@ function filterPokemon(e) {
       } else {
         console.log('Whoops!');
         loadingWrapper.remove();
-        $('.poke-row').append("<span id='no-results-msg'>No Pokémon matched your search</span><img id='no-result-img' src='img/crying.gif'>");
+        $('.poke-row').append('<span id="no-results-msg">No Pokémon matched your search</span><img id="no-result-img" src="img/crying.gif">');
         return;
       }
     });
@@ -630,14 +631,12 @@ async function loadListFromSearch(num, max) {
   }
 
   return Promise.all(pokemonList).then((poke) => {
-    for (x in poke) {
-      pokemonList = poke.map((item) => ({
-        name: item.name.charAt(0).toUpperCase() + item.name.slice(1),
-        id: item.id,
-        imageUrl: item.sprites.other['official-artwork'].front_default == null ? missingNo : item.sprites.other['official-artwork'].front_default,
-        types: item.types.map((types) => types.type.name),
-      }));
-    }
+    pokemonList = poke.map((item) => ({
+      name: item.name.charAt(0).toUpperCase() + item.name.slice(1),
+      id: item.id,
+      imageUrl: item.sprites.other['official-artwork'].front_default == null ? missingNo : item.sprites.other['official-artwork'].front_default,
+      types: item.types.map((types) => types.type.name),
+    }));
 
     console.log(pokemonList);
   });
@@ -646,7 +645,7 @@ async function loadListFromSearch(num, max) {
 // Display pokemon items functionality
 function loadPokesAnim() {
   let counter = finalOffset ? finalOffset : pokemonList.length;
-  let max = pokemonList.length < 16 ? pokemonList.length : finalOffset ? finalOffset : 16;
+  let max = finalOffset ? finalOffset : pokemonList.length;
   flag = 3;
 
   console.log('counter is: ' + counter);
@@ -773,12 +772,12 @@ function statsItem(poke) {
   let statsColumn = $('<div class="col-12"></div>');
   let statsItem;
 
-  statsColumn.append($("<p class='grid-title stats'>Base stats</p>"));
+  statsColumn.append($('<p class="grid-title stats">Base stats</p>'));
 
   let statTitles = ['HP', 'ATK', 'DEF', 'SP.ATK', 'SP.DEF', 'SPD'];
   let statColors = ['red', 'orange', 'blue', 'lightblue', 'grey', 'green'];
 
-  for (x in poke.stats) {
+  for (let x in poke.stats) {
     statsItem = $('<div class="stats-wrapper"></div>');
     let statsName = $(`<p class="grid-title"> ${statTitles[x]} </p>`);
     let statsProgress = $(`<div class="progress progress-striped active" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="255">
@@ -855,7 +854,7 @@ async function showModal(poke) {
     let id = poke.id < 10 ? `#000${poke.id}` : poke.id >= 10 && poke.id < 100 ? `#00${poke.id}` : poke.id >= 100 && poke.id < 1000 ? `#0${poke.id}` : `#${poke.id}`;
     infoRow.append($(`<p class="modal-poke-name">${poke.name}<span class="modal-poke-id"> ${id}</span></p>`));
 
-    let pokeTypes = $("<div class='poke-types'></div>");
+    let pokeTypes = $('<div class="poke-types"></div>');
     poke.types.forEach(function (type) {
       pokeTypes.append($(`<span class=" pill bg-color-${type}">${type}</span>`));
     });
@@ -910,5 +909,5 @@ function pokeCursors() {
 }
 
 pokeCursors(); // Update cursor to a random pokeball cursor
-$("input[type='text']").val(''); // Clear value from search field
-loadData(1, 16); // Run main function for loading Pokemon list
+$('input[type="text"]').val(''); // Clear value from search field
+loadData(1, 32); // Run main function for loading Pokemon list
